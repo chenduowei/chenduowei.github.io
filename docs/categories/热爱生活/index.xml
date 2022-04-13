@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>热爱生活 - 分类 - Duowei Chen の Blog</title>
+        <link>http://example.org/categories/%E7%83%AD%E7%88%B1%E7%94%9F%E6%B4%BB/</link>
+        <description>热爱生活 - 分类 - Duowei Chen の Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 01 Jan 2022 15:09:59 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E7%83%AD%E7%88%B1%E7%94%9F%E6%B4%BB/" rel="self" type="application/rss+xml" /><item>
+    <title>NEW2022</title>
+    <link>http://example.org/10.new2022/</link>
+    <pubDate>Sat, 01 Jan 2022 15:09:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/10.new2022/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/2022.png" referrerpolicy="no-referrer">
+            </div><h1 id="2021年唯一的感觉是过得太快">2021年唯一的感觉是：过得太快。</h1>
+<p></p>
+<a class="lightgallery" href="/images/0.JPG" title="/images/0.JPG" data-thumbnail="/images/0.JPG">
+        
+    </a>
+]]></description>
+</item></channel>
+</rss>

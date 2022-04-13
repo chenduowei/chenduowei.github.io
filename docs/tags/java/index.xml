@@ -1,0 +1,59 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Java - 标签 - Duowei Chen の Blog</title>
+        <link>http://example.org/tags/java/</link>
+        <description>Java - 标签 - Duowei Chen の Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 07 Dec 2021 19:36:39 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>面向对象（OOP）</title>
+    <link>http://example.org/8.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+    <pubDate>Tue, 07 Dec 2021 19:36:39 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/8.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/JavaOOP.png" referrerpolicy="no-referrer">
+            </div><h2 id="什么是面向过程">什么是面向过程？</h2>
+<blockquote>
+<p>概述：自顶向下的编程模式</p>
+</blockquote>
+<h2 id="什么是面向对象">什么是面向对象？</h2>
+<blockquote>
+<p>概述：将事务高度抽象化的编程模式</p>
+</blockquote>
+<h2 id="优劣对比">优劣对比</h2>
+<blockquote>
+<ul>
+<li>面向对象：占用资源相对高，速度相对慢。</li>
+<li>面向过程：占用资源相对低，速度相对快。</li>
+</ul>
+</blockquote>
+<h2 id="面向对象编程相比面向过程编程有哪些优势">面向对象编程相比面向过程编程有哪些优势？</h2>
+<blockquote>
+<ul>
+<li>OOP 更加能够应对大规模复杂程序的开发</li>
+<li>OOP 风格的代码更易复用、易扩展、易维护</li>
+<li>OOP 语言更加人性化、更加高级、更加智能</li>
+</ul>
+</blockquote>
+<h2 id="面向对象的四大基本特征">面向对象的四大基本特征</h2>
+<blockquote>
+<ul>
+<li>封装（ Encapsulation ）</li>
+<li>抽象（ Abstraction ）</li>
+<li>继承（ Inheritance ）</li>
+<li>多态（ Polymorphism ）</li>
+</ul>
+</blockquote>
+<h2 id="面向对象的五大基本原则">面向对象的五大基本原则</h2>
+<blockquote>
+<ul>
+<li>单一职责原则（ Single-Responsibility Principle ）</li>
+<li>开闭封闭原则（ Open-Closed Principle ）</li>
+<li>Liskov 替换原则（ Liskov-Substitution Principle ）</li>
+<li>依赖倒置原则（ Dependecy-Inversion Principle ）</li>
+<li>接口隔离原则（ Interface-Segregation Principle ）</li>
+</ul>
+</blockquote>
+<h2 id="编写高质量代码--设计模式">编写高质量代码 &amp; 设计模式</h2>
+]]></description>
+</item></channel>
+</rss>
