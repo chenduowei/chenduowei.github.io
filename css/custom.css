@@ -1,0 +1,20 @@
+/* 首页文章卡片图片圆角（LoveIt 0.2.X 终极版） */
+.article-entry .featured-wrapper {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+}
+
+.article-entry .featured-wrapper::before {
+    border-radius: 16px !important;
+}
+
+/* 文章详情页的特色图片也顺带圆角 */
+.post-featured-image {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+}
+
+/* 可选：About 页头像圆形（你之前那个雪人头像会更好看） */
+.profile-avatar img {
+    border-radius: 50% !important;
+}
