@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Java - 标签 - Duowei Chen の Blog</title>
+        <link>https://chenduowei.github.io/tags/java/</link>
+        <description>Java - 标签 - Duowei Chen の Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Mar 2023 23:08:30 &#43;0800</lastBuildDate><atom:link href="https://chenduowei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>构建一个影视作品推荐系统：我的设计之旅</title>
+    <link>https://chenduowei.github.io/8.%E5%BD%B1%E8%A7%86%E4%BD%9C%E5%93%81%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</link>
+    <pubDate>Thu, 30 Mar 2023 23:08:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://chenduowei.github.io/8.%E5%BD%B1%E8%A7%86%E4%BD%9C%E5%93%81%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</guid>
+    <description><![CDATA[<p>在这篇博客文章中，我将分享我在设计一个影视作品推荐系统过程中的经验。</p>]]></description>
+</item></channel>
+</rss>
