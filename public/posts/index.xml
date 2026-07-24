@@ -4,6 +4,13 @@
         <link>https://chenduowei.github.io/posts/</link>
         <description>所有文章 | Duowei Chen の Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 24 Jul 2026 14:39:49 &#43;0800</lastBuildDate><atom:link href="https://chenduowei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>我用 AI 给自己做了一个每天都在用的工作系统</title>
+    <link>https://chenduowei.github.io/14.ai-work-system/</link>
+    <pubDate>Fri, 24 Jul 2026 14:39:49 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://chenduowei.github.io/14.ai-work-system/</guid>
+    <description><![CDATA[从最开始用 Excel 记录项目，到用 ChatGPT 和 Codex 一步一步搭建项目管理工作台；从本地网页到 Supabase 云数据库，再到 Vercel 部署上线。 它不是什么伟大的产品，也不会有几万用户。]]></description>
+</item><item>
     <title>人生洞见全书：50条直击现实与灵魂的智慧</title>
     <link>https://chenduowei.github.io/13.%E4%BA%BA%E7%94%9F%E6%B4%9E%E8%A7%81%E5%85%A8%E4%B9%A650%E6%9D%A1%E7%9B%B4%E5%87%BB%E7%8E%B0%E5%AE%9E%E4%B8%8E%E7%81%B5%E9%AD%82%E7%9A%84%E6%99%BA%E6%85%A7/</link>
     <pubDate>Wed, 03 Dec 2025 00:00:00 &#43;0000</pubDate>
@@ -75,12 +82,5 @@
     <author>作者</author>
     <guid>https://chenduowei.github.io/5.%E4%B9%94%E5%B8%83%E6%96%AF%E9%80%81%E7%BB%99%E5%B9%B4%E8%BD%BB%E4%BA%BA%E4%B8%A4%E5%8F%A5%E8%AF%9D/</guid>
     <description><![CDATA[永远渴望，大智若愚（Stay Hungry, Stay Foolish.） ——吴军 浪潮之巅（第四版）]]></description>
-</item><item>
-    <title>我深知自己并不是块美玉</title>
-    <link>https://chenduowei.github.io/4.%E6%88%91%E6%B7%B1%E7%9F%A5%E8%87%AA%E5%B7%B1%E5%B9%B6%E4%B8%8D%E6%98%AF%E5%9D%97%E7%BE%8E%E7%8E%89/</link>
-    <pubDate>Fri, 25 Jun 2021 20:25:02 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://chenduowei.github.io/4.%E6%88%91%E6%B7%B1%E7%9F%A5%E8%87%AA%E5%B7%B1%E5%B9%B6%E4%B8%8D%E6%98%AF%E5%9D%97%E7%BE%8E%E7%8E%89/</guid>
-    <description><![CDATA[我深知自己并不是块美玉，即便细细雕琢仍显糟粕，可又觉得自己并不是朽木，无法安心与周边瓦砾懵懂度日。]]></description>
 </item></channel>
 </rss>

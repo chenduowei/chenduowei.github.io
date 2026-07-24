@@ -3,7 +3,14 @@
         <title>ChatGPT - 标签 - Duowei Chen の Blog</title>
         <link>https://chenduowei.github.io/tags/chatgpt/</link>
         <description>ChatGPT - 标签 - Duowei Chen の Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Mar 2023 00:23:47 &#43;0800</lastBuildDate><atom:link href="https://chenduowei.github.io/tags/chatgpt/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 24 Jul 2026 14:39:49 &#43;0800</lastBuildDate><atom:link href="https://chenduowei.github.io/tags/chatgpt/" rel="self" type="application/rss+xml" /><item>
+    <title>我用 AI 给自己做了一个每天都在用的工作系统</title>
+    <link>https://chenduowei.github.io/14.ai-work-system/</link>
+    <pubDate>Fri, 24 Jul 2026 14:39:49 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://chenduowei.github.io/14.ai-work-system/</guid>
+    <description><![CDATA[从最开始用 Excel 记录项目，到用 ChatGPT 和 Codex 一步一步搭建项目管理工作台；从本地网页到 Supabase 云数据库，再到 Vercel 部署上线。 它不是什么伟大的产品，也不会有几万用户。]]></description>
+</item><item>
     <title>GPT-4：更加智能化和人性化的自然语言处理工具</title>
     <link>https://chenduowei.github.io/7.gpt-4/</link>
     <pubDate>Fri, 17 Mar 2023 00:23:47 &#43;0800</pubDate>
