@@ -1,0 +1,4 @@
+# 忽略 Hugo 编译生成的本地文件夹
+public/
+resources/
+.hugo_build.lock
