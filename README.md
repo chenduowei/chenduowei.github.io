@@ -1,149 +1,102 @@
 # 陈多伟的个人博客 · Duowei Chen Blog
 
-基于 **Hugo** + **GitHub Pages** 构建的个人博客，用来记录生活、思考、建筑行业经验，以及我在不同阶段的成长。
+基于 **Hugo** + **GitHub Actions** + **GitHub Pages** 构建的个人博客，用来记录生活、思考、行业经验，以及我在不同阶段的成长。
 
-在线访问 👉 https://chenduowei.github.io/
+在线访问 👉 [https://chenduowei.github.io/](https://chenduowei.github.io/)
 
 ---
 
 ## ✨ 项目简介
 
-这是我从大学时代保留下来的个人博客，经过 2025 年重新整理、优化与升级。  
-它保持了 **极简、快速、可长期维护** 的特性，适合作为我个人写作与表达的主阵地。
+这是我从大学时代保留下来的个人博客，经过重构与优化，目前采用了**单仓库 + GitHub Actions 云端自动化部署**的现代极简架构。
 
 博客特点：
 
-- 使用 **Hugo** 静态生成：构建速度极快  
-- **LoveIt** 主题：现代、干净、响应式  
-- **GitHub Pages** 部署：稳定、省心、免费  
-- 支持代码高亮、搜索、评论、标签体系、文章归档等全部核心功能  
-- 完全开源，可持续更新
+- **极速构建**：使用 **Hugo** 静态引擎，秒级渲染页面
+- **现代美观**：基于 **LoveIt** 主题，干净、响应式、支持深色模式切换
+- **自动化部署**：源码推送即自动编译构建，无需本地生成静态文件
+- **功能完备**：支持全文搜索、代码高亮、文章归档与标签体系
+- **独立可控**：数据完全由 Markdown 掌控，轻量且适合长期写作
 
 ---
 
 ## 🛠 技术栈
 
-- **Hugo**：Go 语言实现的高性能静态博客框架  
-- **GitHub Pages**：托管与自动部署  
-- **LoveIt 主题**：极简、优雅、可高度定制  
-- **Markdown**：文章内容全部 Markdown 编写  
-- **Utterances**：评论功能，基于 GitHub Issue  
+- **Hugo**：Go 语言实现的超高性能静态网站生成器
+- **GitHub Actions**：云端 CI/CD 自动化构建与部署
+- **GitHub Pages**：静态站点托管
+- **LoveIt Theme**：优雅、极简、功能丰富的 Hugo 主题
+- **Markdown**：纯文本写作
 
 ---
 
-## 📚 功能特性
+## 🚀 本地开发与预览
 
-- **文章系统**  
-  - 自动生成目录、阅读时间、字数统计  
-  - 代码高亮、数学公式、表格、相册、引用  
-  - 支持草稿模式与多语言
+如果你需要在本地编写文章或预览效果：
 
-- **归档与导航**  
-  - 分类、标签、年份归档  
-  - 文章永久链接（slug/filename），结构稳定
+```powershell
+# 1. 克隆项目
+git clone [https://github.com/chenduowei/chenduowei.github.io.git](https://github.com/chenduowei/chenduowei.github.io.git)
+cd chenduowei.github.io
 
-- **主题定制**  
-  - 首页个人简介  
-  - 社交链接与头像展示  
-  - 深色/浅色主题自动切换  
-  - Favicon / Logo 自定义  
-  - 自定义 Footer、Meta 数据
-
-- **评论系统**  
-  - Utterances（GitHub 账户即可评论）
-
-- **搜索**  
-  - 基于 Fuse.js 的全文搜索
-
----
-
-## 🚀 本地开发
-
-```bash
-# 克隆项目
-git clone https://github.com/chenduowei/hugo-blog-source.git
-cd hugo-blog-source
-
-# 本地预览（包含草稿）
+# 2. 本地实时预览（包含草稿）
 hugo server -D
 ```
 
-访问 http://localhost:1313
+访问本地地址：`http://localhost:1313`
 
 ---
 
-## 📦 部署说明
+## 📦 部署架构与发布流程
 
-项目采用 **代码分仓** 的最佳实践：
+本项目采用了 **GitHub Actions 云端自动化构建** 的最佳实践，彻底去除了本地手动编译及 `public/` 提交的繁琐步骤。
 
-| 仓库 | 作用 |
-|------|------|
-| **hugo-blog-source** | 文章 + 模板 + 配置（主仓库） |
-| **chenduowei.github.io** | 存放 Hugo 构建后的 `public/` 静态文件 |
+```text
+[本地编写 Markdown] ──(git push)──> [GitHub 源码仓库] ──(Actions 云端编译)──> [GitHub Pages 上线]
+```
 
-部署方式：
+### 极简发布三步法
 
-```bash
-# 构建静态文件
-hugo -D
+写完文章（确保 `draft: false`）后，在终端运行以下三行命令即可：
 
-# 将 public/ 推送到 chenduowei.github.io 仓库
-cd public
+```powershell
 git add .
-git commit -m "Update site"
+git commit -m "feat: 发布新文章"
 git push
 ```
 
-GitHub Pages 会自动无服务器部署。
+云端 Actions 会在 30 秒内自动完成编译并更新博客。
 
 ---
 
-## 🧭 目录结构（精简版）
+## 🧭 项目目录结构
 
-```
+```text
 .
-├── content/             # 博客文章（Markdown）
-├── config.toml          # 博客全局配置
-├── themes/              # LoveIt 主题
-├── static/              # 图片、图标、自定义资源
-├── assets/              # CSS & JS（可自定义）
-└── public/              # 构建后的静态文件（部署目录）
+├── content/          # 博客文章与页面源码（Markdown）
+│   └── posts/        # 文章主目录
+├── config.toml       # Hugo 全局配置文件
+├── themes/           # LoveIt 主题目录
+├── static/           # 静态资源（图片、favicon 等）
+├── .github/          # GitHub Actions 自动化部署工作流配置
+└── .gitignore        # Git 忽略配置（包含 public/ 等编译目录）
 ```
 
 ---
 
 ## 🌱 项目收获
 
-通过维护这个博客，我获得了：
+通过长期维护这个博客，我建立了：
 
-- 对 Hugo 系统的深入理解  
-- 对 GitHub Pages 部署流程的熟练掌握  
-- 更高效的 Markdown 写作能力  
-- 能自由定制主题、前端样式与构建逻辑  
-- 一个长期属于自己的写作空间  
-
-它不仅是技术项目，也是我记录生活与思考的地方。
-
----
-
-## 🗺 未来计划
-
-- 添加社交分享功能  
-- 优化 SEO（Meta、结构化数据）  
-- 文章批量迁移 & 旧文章整理  
-- 深度定制 LoveIt 主题（布局、性能、交互）  
-- 支持评论系统（Utterances）  
-- 移动端体验优化  
-- 持续更新博客文章  
+- 一套完全自动化、无痛感的写作与发布流程
+- 对 Hugo 架构与 GitHub CI/CD 自动化构建的深入理解
+- 一个长期独立属于自己、不受平台限制的思考与文字空间
 
 ---
 
 ## 📬 联系方式
 
-GitHub：https://github.com/chenduowei  
-Email：duowei_chen@outlook.com
+- **GitHub**：[https://github.com/chenduowei](https://github.com/chenduowei)
+- **Email**：`duowei_chen@outlook.com`
 
-如果你对 Hugo 架构、博客搭建或静态网站感兴趣，也欢迎交流。
-
-“文字是一个人最长期、最隐秘、最诚实的自我。”  
-—— 这就是我继续写博客的理由。
+> “文字是一个人最长期、最隐秘、最诚实的自我。”

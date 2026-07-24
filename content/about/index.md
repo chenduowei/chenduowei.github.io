@@ -2,8 +2,8 @@
 title: "关于我"
 ---
 
-### `我宁愿在自由的泥泞里越陷越深 也不愿在虚伪的束缚里载歌载舞`
-### `痴迷技术 热爱生活 终生学习 向死而生 永远渴望 大智若愚 但行好事 莫问前程`
+> **我宁愿在自由的泥泞里越陷越深，也不愿在虚伪的束缚里载歌载舞。**  
+> *痴迷技术 · 热爱生活 · 终生学习 · 向死而生 · 永远渴望 · 大智若愚 · 但行好事 · 莫问前程*
 
 ***
 
@@ -32,9 +32,8 @@ title: "关于我"
 > 终盖过万籁俱寂。
 > 
 > —— 陈多伟 2025-11-21
- 
-***
 
+***
 
 <details>
 <summary style="font-size: 1.35em; font-weight: bold; cursor: pointer; padding: 0.8rem 0; color: var(--primary);">
@@ -129,6 +128,6 @@ title: "关于我"
 
 </details>
 
-{{< admonition type=message title="联系方式" open=false >}}
+{{< admonition type=message title="联系方式" open=true >}}
  `微信：lan_02150701` `抖音：唯待江南归`
 {{< /admonition >}}
