@@ -61,7 +61,7 @@ publishDir = "public"
     subtitle = "白天写标书，夜里写自己。在被现实不断削薄的日子里，我试着用一篇篇博客，把掉落的血肉、星火和少年心重新缝回原处。愿在漫长的奔波里，仍能守住一寸不折之骨。"   
     typeit = true
     social = true
-    disclaimer = "Stay Hungry, Stay Foolish."  # 乔布斯金句，一个字不动
+    disclaimer = "理性，克制，清醒。"
 
   # 2025 唯一新增：评论区（不加也行，想加了再打开）
   [params.page.comment]
