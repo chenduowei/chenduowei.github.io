@@ -1,0 +1,596 @@
+diff --git a/config.toml b/config.toml
+index cabec03..dbb46c8 100755
+--- a/config.toml
++++ b/config.toml
+@@ -40,12 +40,28 @@ publishDir = "public"
+ [params]
+   version = "0.2.X"
+   description = "陈多伟的个人博客"   # 低调到底，终极逼格
+-  keywords = ["Theme", "Hugo"]
++  keywords = ["陈多伟", "博客", "标书", "思考", "生活随笔"]
+   defaultTheme = "auto"
+   dateFormat = "2006-01-02"
+   images = ["/logo.png"]
+   since = 2021
+ 
++  # 页脚版权说明：原创文章转载请注明出处
++  [params.footer]
++    license = "原创文章采用 CC BY-NC-SA 4.0，转载请注明出处"
++
++  # 站内搜索：Lunr 本地索引，无需第三方服务
++  # 需配合底部的 [outputs] home 包含 JSON 才能生成搜索索引
++  [params.search]
++    enable = true
++    type = "lunr"
++    contentLength = 4000
++    placeholder = "搜索文章标题或内容..."
++    maxResultLength = 10
++    snippetLength = 50
++    highlightTag = "em"
++    absoluteURL = false
++
+   [params.header.title]
+     logo = ""
+     name = "Duowei Chen の Blog"
+@@ -164,4 +180,12 @@ publishDir = "public"
+ 
+ # 作者名字设置（加了这行，首页和文章页就显示你的名字了）
+ [author]
+-  name = "陈多伟"
+\ No newline at end of file
++  name = "陈多伟"
++  email = "duowei_chen@outlook.com"
++
++# 输出格式：home 必须包含 JSON，Lunr 搜索索引（index.json）才会被生成
++[outputs]
++  home = ["HTML", "RSS", "JSON"]
++  page = ["HTML"]
++  section = ["HTML", "RSS"]
++  taxonomy = ["HTML", "RSS"]
+\ No newline at end of file
+diff --git a/content/about/index.md b/content/about/index.md
+index 077e216..b3fcfd2 100755
+--- a/content/about/index.md
++++ b/content/about/index.md
+@@ -141,6 +141,6 @@ title: "关于我"
+ 
+ ## 联系我
+ 
+-- 邮箱：<chenduoweig@gmail.com>
++- 邮箱：<duowei_chen@outlook.com>
+ 
+ > *文字是一个人最长期、最隐秘、最诚实的自我。*
+\ No newline at end of file
+diff --git "a/content/posts/23.\344\273\216\347\234\237\345\256\236\346\212\225\346\240\207\345\267\245\344\275\234\345\210\260\345\217\257\351\225\277\346\234\237\344\275\277\347\224\250\347\232\204\345\260\217\345\267\245\345\205\267.md" "b/content/posts/23.\344\273\216\347\234\237\345\256\236\346\212\225\346\240\207\345\267\245\344\275\234\345\210\260\345\217\257\351\225\277\346\234\237\344\275\277\347\224\250\347\232\204\345\260\217\345\267\245\345\205\267.md"
+index d90d0da..78f7d0f 100644
+--- "a/content/posts/23.\344\273\216\347\234\237\345\256\236\346\212\225\346\240\207\345\267\245\344\275\234\345\210\260\345\217\257\351\225\277\346\234\237\344\275\277\347\224\250\347\232\204\345\260\217\345\267\245\345\205\267.md"
++++ "b/content/posts/23.\344\273\216\347\234\237\345\256\236\346\212\225\346\240\207\345\267\245\344\275\234\345\210\260\345\217\257\351\225\277\346\234\237\344\275\277\347\224\250\347\232\204\345\260\217\345\267\245\345\205\267.md"
+@@ -22,17 +22,10 @@ featuredImagePreview:
+ 
+ 整个过程更像一次真实的软件迭代：
+ 
+-```
+-分析问题
+-   ↓
+-补齐刚需
+-   ↓
+-优化体验
+-   ↓
+-主动停止开发，进入稳定使用阶段
+-   ↓
+-整理踩坑经验
+-```
++{{< mermaid >}}
++flowchart TD
++    A["分析问题"] --> B["补齐刚需"] --> C["优化体验"] --> D["主动停止开发，进入稳定使用阶段"] --> E["整理踩坑经验"]
++{{< /mermaid >}}
+ 
+ 写下这篇文章，记录这一天，也给那些想用代码改善自己工作的人一些参考。
+ 
+@@ -44,30 +37,10 @@ featuredImagePreview:
+ 
+ 日常工作大概是这样：
+ 
+-```
+-收到招标文件
+-
+-      ↓
+-
+-阅读几十甚至上百页 PDF
+-
+-      ↓
+-
+-寻找：
+-- 开标时间
+-- 保证金要求
+-- 资格条件
+-- 废标条款
+-- 技术要求
+-
+-      ↓
+-
+-整理到自己的表格和笔记
+-
+-      ↓
+-
+-等待项目推进
+-```
++{{< mermaid >}}
++flowchart TD
++    A["收到招标文件"] --> B["阅读几十甚至上百页 PDF"] --> C["寻找：<br/>开标时间<br/>保证金要求<br/>资格条件<br/>废标条款<br/>技术要求"] --> D["整理到自己的表格和笔记"] --> E["等待项目推进"]
++{{< /mermaid >}}
+ 
+ 看似简单，但实际痛点很多。
+ 
+@@ -239,15 +212,11 @@ Supabase
+ 
+ 调整后：
+ 
+-```
+-资格要求
+-      ↓
+-结构化字段
+-
+-废标风险
+-      ↓
+-独立展示
+-```
++{{< mermaid >}}
++flowchart TD
++    A["资格要求"] --> B["结构化字段"]
++    C["废标风险"] --> D["独立展示"]
++{{< /mermaid >}}
+ 
+ ---
+ 
+@@ -263,21 +232,10 @@ Supabase
+ 
+ 调整：
+ 
+-```
+-长文档
+-
+- ↓
+-
+-分块摘要
+-
+- ↓
+-
+-整体汇总
+-
+- ↓
+-
+-结构化提取
+-```
++{{< mermaid >}}
++flowchart TD
++    A["长文档"] --> B["分块摘要"] --> C["整体汇总"] --> D["结构化提取"]
++{{< /mermaid >}}
+ 
+ 并增加失败自动重试。
+ 
+@@ -378,15 +336,10 @@ Supabase
+ 
+ 很多个人开发项目容易陷入：
+ 
+-```
+-开发
+- ↓
+-增加功能
+- ↓
+-继续开发
+- ↓
+-永远没有完成
+-```
++{{< mermaid >}}
++flowchart TD
++    A["开发"] --> B["增加功能"] --> C["继续开发"] --> D["永远没有完成"]
++{{< /mermaid >}}
+ 
+ 但真正有价值的软件：
+ 
+@@ -679,25 +632,10 @@ Supabase
+ 
+ 如果你也想用代码改善自己的工作流程，我认为路径可以很简单：
+ 
+-```
+-发现痛点
+-
+-↓
+-
+-做一个小工具
+-
+-↓
+-
+-真实使用
+-
+-↓
+-
+-记录问题
+-
+-↓
+-
+-继续优化
+-```
++{{< mermaid >}}
++flowchart TD
++    A["发现痛点"] --> B["做一个小工具"] --> C["真实使用"] --> D["记录问题"] --> E["继续优化"]
++{{< /mermaid >}}
+ 
+ 不要为了 AI 而做 AI。
+ 
+diff --git "a/content/posts/26.\346\210\221\346\233\276\347\273\217\344\273\245\344\270\272\350\207\252\345\267\261\345\234\250\345\205\263\345\277\203\344\270\226\347\225\214\357\274\214\345\220\216\346\235\245\346\211\215\345\217\221\347\216\260\346\210\221\345\217\252\346\230\257\345\234\250\345\257\273\346\211\276\350\207\252\345\267\261.md" "b/content/posts/26.\346\210\221\346\233\276\347\273\217\344\273\245\344\270\272\350\207\252\345\267\261\345\234\250\345\205\263\345\277\203\344\270\226\347\225\214\357\274\214\345\220\216\346\235\245\346\211\215\345\217\221\347\216\260\346\210\221\345\217\252\346\230\257\345\234\250\345\257\273\346\211\276\350\207\252\345\267\261.md"
+index 08aff51..841a051 100644
+--- "a/content/posts/26.\346\210\221\346\233\276\347\273\217\344\273\245\344\270\272\350\207\252\345\267\261\345\234\250\345\205\263\345\277\203\344\270\226\347\225\214\357\274\214\345\220\216\346\235\245\346\211\215\345\217\221\347\216\260\346\210\221\345\217\252\346\230\257\345\234\250\345\257\273\346\211\276\350\207\252\345\267\261.md"
++++ "b/content/posts/26.\346\210\221\346\233\276\347\273\217\344\273\245\344\270\272\350\207\252\345\267\261\345\234\250\345\205\263\345\277\203\344\270\226\347\225\214\357\274\214\345\220\216\346\235\245\346\211\215\345\217\221\347\216\260\346\210\221\345\217\252\346\230\257\345\234\250\345\257\273\346\211\276\350\207\252\345\267\261.md"
+@@ -46,6 +46,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 一、三年疫情：争论从来不是事实之争
++
+ 疫情持续了三年。
+ 
+ 这三年里，我和许多年轻人一样，见证了许多以前从未见过的事情。
+@@ -114,6 +116,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 二、结婚之后，宏大叙事退场
++
+ 大学毕业后，我结婚了。
+ 
+ 房贷开始按月扣款。
+@@ -168,6 +172,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 三、人不仅需要面包，也需要意义
++
+ 我忽然意识到。
+ 
+ 一个人可能永远无法彻底摆脱这些问题。
+@@ -202,6 +208,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 四、越来越接受复杂
++
+ 这些年，我最大的变化不是立场变了。
+ 
+ 而是越来越接受复杂。
+@@ -232,6 +240,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 五、先看清自己
++
+ 如果现在让我给2020年的自己写一句话。
+ 
+ 我会这样写：
+diff --git "a/content/posts/29.\345\220\216\346\235\245\346\210\221\346\211\215\347\237\245\351\201\223\357\274\214\351\202\243\344\271\237\346\230\257\346\210\221\347\232\204\344\272\272\347\224\237.md" "b/content/posts/29.\345\220\216\346\235\245\346\210\221\346\211\215\347\237\245\351\201\223\357\274\214\351\202\243\344\271\237\346\230\257\346\210\221\347\232\204\344\272\272\347\224\237.md"
+index c04c128..357c731 100644
+--- "a/content/posts/29.\345\220\216\346\235\245\346\210\221\346\211\215\347\237\245\351\201\223\357\274\214\351\202\243\344\271\237\346\230\257\346\210\221\347\232\204\344\272\272\347\224\237.md"
++++ "b/content/posts/29.\345\220\216\346\235\245\346\210\221\346\211\215\347\237\245\351\201\223\357\274\214\351\202\243\344\271\237\346\230\257\346\210\221\347\232\204\344\272\272\347\224\237.md"
+@@ -156,6 +156,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 一、如果当初那条路走下去了
++
+ 我有时候会想。
+ 
+ 如果2023年那个时候，我真的把400块钱的课程认真学完了呢？
+@@ -208,6 +210,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 二、三年后，话术没变，人变了
++
+ 今天那个老师又问我要不要报名。
+ 
+ 我突然觉得很好笑。
+@@ -268,6 +272,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 三、和过去的自己和解
++
+ 我现在越来越觉得，人真正需要和解的，可能不是过去的某一个错误。
+ 
+ 而是那个曾经的自己。
+diff --git "a/content/posts/33.\345\267\245\350\265\204\346\235\241\344\273\245\345\244\226\347\232\204\345\251\232\345\247\273.md" "b/content/posts/33.\345\267\245\350\265\204\346\235\241\344\273\245\345\244\226\347\232\204\345\251\232\345\247\273.md"
+index 43d8715..fe2c50e 100644
+--- "a/content/posts/33.\345\267\245\350\265\204\346\235\241\344\273\245\345\244\226\347\232\204\345\251\232\345\247\273.md"
++++ "b/content/posts/33.\345\267\245\350\265\204\346\235\241\344\273\245\345\244\226\347\232\204\345\251\232\345\247\273.md"
+@@ -50,6 +50,8 @@ featuredImagePreview:
+ 
+ 我会想，如果一直这样下去，她会不会慢慢觉得不公平。
+ 
++## 一、她没有按工资条算我
++
+ 直到她跟我说：
+ 
+ “没事的，我们没有孩子，有孩子就离婚了。”
+@@ -102,6 +104,8 @@ featuredImagePreview:
+ 
+ 没有谁拿着计算器，算自己到底比对方多付出了多少。
+ 
++## 二、花得最少的月份
++
+ 还有一个很奇怪的地方。
+ 
+ 这个月是我们最近几年花钱最少的一个月。
+@@ -152,6 +156,8 @@ featuredImagePreview:
+ 
+ 只是因为我也希望，在她累的时候，我能够多承担一点。
+ 
++## 三、工资条证明不了的
++
+ 以前我总觉得，一个男人的价值，应该写在工资条上。
+ 
+ 赚多少工资，就证明自己有多少价值。
+diff --git "a/content/posts/34.\344\270\272\344\273\200\344\271\210\346\210\221\344\273\254\351\203\275\346\203\263\344\274\221\346\201\257\357\274\214\345\215\264\346\262\241\346\234\211\344\272\272\345\201\234\344\270\213\346\235\245.md" "b/content/posts/34.\344\270\272\344\273\200\344\271\210\346\210\221\344\273\254\351\203\275\346\203\263\344\274\221\346\201\257\357\274\214\345\215\264\346\262\241\346\234\211\344\272\272\345\201\234\344\270\213\346\235\245.md"
+index 32a0aea..c897a1b 100644
+--- "a/content/posts/34.\344\270\272\344\273\200\344\271\210\346\210\221\344\273\254\351\203\275\346\203\263\344\274\221\346\201\257\357\274\214\345\215\264\346\262\241\346\234\211\344\272\272\345\201\234\344\270\213\346\235\245.md"
++++ "b/content/posts/34.\344\270\272\344\273\200\344\271\210\346\210\221\344\273\254\351\203\275\346\203\263\344\274\221\346\201\257\357\274\214\345\215\264\346\262\241\346\234\211\344\272\272\345\201\234\344\270\213\346\235\245.md"
+@@ -64,6 +64,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 一、羡慕的不是工作，是时间的掌控感
++
+ 我想，我们真正羡慕的，可能不是农民。
+ 
+ 而是那种**“时间属于自己”**的感觉。
+@@ -110,6 +112,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 二、为什么没人站出来？
++
+ 可是，更让我困惑的是：
+ 
+ **为什么大家明明都不喜欢这样，却没有人真正改变它？**
+@@ -164,6 +168,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 三、风险不对等，所以只能忍耐
++
+ 更现实的是，劳动者和老板承担风险的方式本来就不一样。
+ 
+ 公司失去一个员工，可以继续招聘。
+@@ -196,6 +202,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 四、社会不是某一天突然改变的
++
+ 而且，一个人改变了，也未必足够。
+ 
+ 如果只有一家公司缩短工作时间，而同行仍然拼命加班，那么这家公司甚至可能在竞争中处于劣势。
+@@ -256,6 +264,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 五、把时间一点一点拿回来
++
+ 当然，对一个普通人来说，我们也没有必要把希望寄托在“有一天社会突然改变”。
+ 
+ 因为那一天什么时候到来，没有人知道。
+@@ -302,6 +312,8 @@ featuredImagePreview:
+ 
+ ---
+ 
++## 六、时间，才是最贵的
++
+ 我甚至开始觉得，一个普通人真正值得追求的，不一定是赚到多少钱。
+ 
+ 而是：
+diff --git a/layouts/partials/footer.html b/layouts/partials/footer.html
+new file mode 100755
+index 0000000..5de5589
+--- /dev/null
++++ b/layouts/partials/footer.html
+@@ -0,0 +1,115 @@
++{{- if ne .Site.Params.footer.enable false -}}
++<footer class="footer">
++    <div class="footer-container">
++        {{- /* Custom Content */ -}} {{- with .Site.Params.footer.custom -}}
++        <div class="footer-line">
++            {{- safeHTML . -}}
++        </div>
++        {{- end -}} {{- /* Hugo and LoveIt */ -}} {{- if ne .Site.Params.footer.hugo false -}}
++        <div class="footer-line">
++            {{- $hugo := printf `<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer"
++                title="Hugo %v">Hugo</a>` hugo.Version -}} {{- $theme := .Scratch.Get "version" | printf `<a
++                href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt %v"><i
++                    class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>` -}} {{- dict "Hugo" $hugo "Theme" $theme | T
++            "poweredBySome" | safeHTML }}
++        </div>
++        {{- end -}}
++
++        <div class="footer-line">
++            <span id="run-time"></span>
++            <script>
++                /* 站点运行时间 */
++                function runtime() {
++                    window.setTimeout("runtime()", 1000);
++                    /* 请修改这里的起始时间 */
++                    let startTime = new Date('06/04/2021 00:00:00');
++                    let endTime = new Date();
++                    let usedTime = endTime - startTime;
++                    let days = Math.floor(usedTime / (24 * 3600 * 1000));
++                    let leavel = usedTime % (24 * 3600 * 1000);
++                    let hours = Math.floor(leavel / (3600 * 1000));
++                    let leavel2 = leavel % (3600 * 1000);
++                    let minutes = Math.floor(leavel2 / (60 * 1000));
++                    let leavel3 = leavel2 % (60 * 1000);
++                    let seconds = Math.floor(leavel3 / (1000));
++                    let runbox = document.getElementById('run-time');
++                    runbox.innerHTML = '本站已安全运行 ' +
++                        ((days < 10) ? '0' : '') + days + ' 天 ' +
++                        ((hours < 10) ? '0' : '') + hours + ' 时 ' +
++                        ((minutes < 10) ? '0' : '') + minutes + ' 分 ' +
++                        ((seconds < 10) ? '0' : '') + seconds + ' 秒 ';
++                }
++                runtime();
++            </script>
++            <!-- # 运行时间在这里
++            <span id="timeDate">{{ T "worktime" }}&nbsp;|&nbsp;</span>
++            <script>
++                var now = new Date();
++
++                function createtime() {
++                    var start_time = new Date("09/16/2020 00:00:00");
++                    now.setTime(now.getTime() + 250);
++                    days = (now - start_time) / 1000 / 60 / 60 / 24;
++                    dnum = Math.floor(days);
++                    var worktime = document.getElementById("timeDate").innerHTML.replace(/time/, Math.floor(days));
++                    document.getElementById("timeDate").innerHTML = worktime;
++                }
++                createtime();
++            </script> -->
++
++            {{- /* Copyright year */ -}} {{- if ne .Site.Params.footer.copyright false -}}
++            <i class="far fa-copyright fa-fw"></i> {{- with .Site.Params.footer.since -}}
++            <span itemprop="copyrightYear">
++                {{- if lt . now.Year }}{{ . }} - {{ end }}{{ now.Year -}}
++            </span> {{- else -}}
++            <span itemprop="copyrightYear">{{ now.Year }}</span> {{- end -}} {{- end -}} {{- /* Author */ -}} {{- if ne
++            .Site.Params.footer.author false -}}
++            <span class="author" itemprop="copyrightHolder">&nbsp;<a
++                    href="{{ $.Site.Author.link | default .Site.Home.RelPermalink }}" target="_blank">{{
++                    .Site.Author.name }}</a></span> {{- end -}} {{- /* License */ -}} {{- with
++            .Site.Params.footer.license
++            -}} &nbsp;|&nbsp;
++            <span class="license">{{ . | safeHTML }}</span> {{- end -}} {{- /* ICP */ -}} {{- with
++            .Site.Params.footer.icp -}}
++            <span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br" />
++            <span class="icp">{{ . | safeHTML }}</span> {{- end -}}
++        </div>
++    </div>
++
++    <!-- 不蒜子Busuanzi站点访问量（PV：页面浏览量，非独立访客） -->
++    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
++    <span id="busuanzi_container_site_pv">本站总访问量（PV）<span id="busuanzi_value_site_pv"></span>次</span>
++
++    <!-- Live2D Widget：小屏默认不加载，可点右下角按钮关闭并记住选择 -->
++    <style>
++        #live2d-toggle {
++            position: fixed; right: 12px; bottom: 12px; z-index: 9999;
++            font-size: 12px; padding: 4px 8px; border: 1px solid #ccc;
++            border-radius: 12px; background: rgba(255,255,255,.85); cursor: pointer;
++        }
++        @media (max-width: 768px) {
++            #live2d-toggle { display: none; }
++        }
++    </style>
++    <script>
++        (function () {
++            if (localStorage.getItem('live2d-hidden') === '1') return;
++            if (window.innerWidth <= 768) return;
++            var s = document.createElement('script');
++            s.src = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js';
++            document.body.appendChild(s);
++            var btn = document.createElement('button');
++            btn.id = 'live2d-toggle';
++            btn.textContent = '隐藏看板娘';
++            btn.onclick = function () {
++                localStorage.setItem('live2d-hidden', '1');
++                var w = document.querySelector('#live2d-widget, #live2dcanvas');
++                if (w) w.style.display = 'none';
++                btn.remove();
++            };
++            document.body.appendChild(btn);
++        })();
++    </script>
++
++</footer>
++{{- end -}}
+\ No newline at end of file
+diff --git a/layouts/partials/rss/item.html b/layouts/partials/rss/item.html
+new file mode 100755
+index 0000000..8ebe5a1
+--- /dev/null
++++ b/layouts/partials/rss/item.html
+@@ -0,0 +1,37 @@
++{{- $params := .Page.Params | merge .Site.Params.Page | merge (dict "author" .Site.Author.name) -}}
++<item>
++    <title>
++        {{- .Page.Title -}}
++    </title>
++    <link>
++        {{- .Page.Permalink -}}
++    </link>
++    <pubDate>
++        {{- .Page.Date.Format "Mon, 02 Jan 2006 15:04:05 -0700"  -}}
++    </pubDate>
++    <author>
++        {{- /* 修复 LoveIt 主题 bug：原模板用 .params.author（不存在的字段）导致 RSS 作者恒为“作者”；改用 $params.author 并回退到站点作者 */ -}}
++        {{- $params.author | default .Site.Author.name | default (T "author") -}}
++    </author>
++    <guid>
++        {{- .Page.Permalink -}}
++    </guid>
++    <description>
++        {{- "<![CDATA[" | safeHTML -}}
++        {{- with $params.featuredimage -}}
++            <div class="featured-image">
++                <img src="{{ . | relURL }}" referrerpolicy="no-referrer">
++            </div>
++        {{- end -}}
++        {{- $content := .Page.Description -}}
++        {{- if $params.rssFullText -}}
++            {{- $content = dict "Content" .Page.Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" -}}
++        {{- else -}}
++            {{- with .Page.Summary -}}
++                {{- $content = dict "Content" . "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" -}}
++            {{- end -}}
++        {{- end -}}
++        {{- $content | replaceRE `<figure[^>]*>.*</figure>` "" | replaceRE `<img[^>]*( /)?>` "" | safeHTML -}}
++        {{- "]]>" | safeHTML -}}
++    </description>
++</item>
+\ No newline at end of file
+diff --git a/layouts/shortcodes/mermaid.html b/layouts/shortcodes/mermaid.html
+new file mode 100644
+index 0000000..96efcec
+--- /dev/null
++++ b/layouts/shortcodes/mermaid.html
+@@ -0,0 +1,34 @@
++{{- /* 覆盖 LoveIt 主题的 mermaid shortcode。
++  原因：主题的 mermaid 依赖 shortcode 经 Scratch 把流程图内容传给模板的 window.config，
++  但在 Hugo 0.123 下 shortcode 的 Scratch 写不进模板，mermaid.js 不加载、内容也丢失，
++  导致所有 mermaid 图都是空 div。本覆盖改走直出方案：内容直接写进 div，
++  用 CDN 的 mermaid 8 渲染，不依赖主题的 Scratch 机制。 */ -}}
++{{- $content := trim .Inner "\n" -}}
++<div class="mermaid-direct">{{ $content }}</div>
++<style>.mermaid-direct{text-align:center;margin:1em 0}.mermaid-direct svg{max-width:100%}</style>
++<script>
++(function () {
++  function render() {
++    if (!window.mermaid) return;
++    try {
++      mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' });
++      var nodes = document.querySelectorAll('.mermaid-direct:not([data-processed])');
++      if (nodes.length) mermaid.init(undefined, nodes);
++    } catch (e) { console.error('mermaid render failed', e); }
++  }
++  if (window.mermaid) { render(); return; }
++  if (window.__mermaidDirectLoading) {
++    document.addEventListener('mermaidDirectReady', render);
++    return;
++  }
++  window.__mermaidDirectLoading = true;
++  var s = document.createElement('script');
++  s.src = 'https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js';
++  s.onload = function () {
++    window.__mermaidDirectLoading = false;
++    document.dispatchEvent(new Event('mermaidDirectReady'));
++    render();
++  };
++  document.head.appendChild(s);
++})();
++</script>

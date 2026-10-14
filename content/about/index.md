@@ -141,6 +141,6 @@ title: "关于我"
 
 ## 联系我
 
-- 邮箱：<chenduoweig@gmail.com>
+- 邮箱：<duowei_chen@outlook.com>
 
 > *文字是一个人最长期、最隐秘、最诚实的自我。*

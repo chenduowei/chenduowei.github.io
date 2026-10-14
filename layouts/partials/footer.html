@@ -1,0 +1,115 @@
+{{- if ne .Site.Params.footer.enable false -}}
+<footer class="footer">
+    <div class="footer-container">
+        {{- /* Custom Content */ -}} {{- with .Site.Params.footer.custom -}}
+        <div class="footer-line">
+            {{- safeHTML . -}}
+        </div>
+        {{- end -}} {{- /* Hugo and LoveIt */ -}} {{- if ne .Site.Params.footer.hugo false -}}
+        <div class="footer-line">
+            {{- $hugo := printf `<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer"
+                title="Hugo %v">Hugo</a>` hugo.Version -}} {{- $theme := .Scratch.Get "version" | printf `<a
+                href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt %v"><i
+                    class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>` -}} {{- dict "Hugo" $hugo "Theme" $theme | T
+            "poweredBySome" | safeHTML }}
+        </div>
+        {{- end -}}
+
+        <div class="footer-line">
+            <span id="run-time"></span>
+            <script>
+                /* 站点运行时间 */
+                function runtime() {
+                    window.setTimeout("runtime()", 1000);
+                    /* 请修改这里的起始时间 */
+                    let startTime = new Date('06/04/2021 00:00:00');
+                    let endTime = new Date();
+                    let usedTime = endTime - startTime;
+                    let days = Math.floor(usedTime / (24 * 3600 * 1000));
+                    let leavel = usedTime % (24 * 3600 * 1000);
+                    let hours = Math.floor(leavel / (3600 * 1000));
+                    let leavel2 = leavel % (3600 * 1000);
+                    let minutes = Math.floor(leavel2 / (60 * 1000));
+                    let leavel3 = leavel2 % (60 * 1000);
+                    let seconds = Math.floor(leavel3 / (1000));
+                    let runbox = document.getElementById('run-time');
+                    runbox.innerHTML = '本站已安全运行 ' +
+                        ((days < 10) ? '0' : '') + days + ' 天 ' +
+                        ((hours < 10) ? '0' : '') + hours + ' 时 ' +
+                        ((minutes < 10) ? '0' : '') + minutes + ' 分 ' +
+                        ((seconds < 10) ? '0' : '') + seconds + ' 秒 ';
+                }
+                runtime();
+            </script>
+            <!-- # 运行时间在这里
+            <span id="timeDate">{{ T "worktime" }}&nbsp;|&nbsp;</span>
+            <script>
+                var now = new Date();
+
+                function createtime() {
+                    var start_time = new Date("09/16/2020 00:00:00");
+                    now.setTime(now.getTime() + 250);
+                    days = (now - start_time) / 1000 / 60 / 60 / 24;
+                    dnum = Math.floor(days);
+                    var worktime = document.getElementById("timeDate").innerHTML.replace(/time/, Math.floor(days));
+                    document.getElementById("timeDate").innerHTML = worktime;
+                }
+                createtime();
+            </script> -->
+
+            {{- /* Copyright year */ -}} {{- if ne .Site.Params.footer.copyright false -}}
+            <i class="far fa-copyright fa-fw"></i> {{- with .Site.Params.footer.since -}}
+            <span itemprop="copyrightYear">
+                {{- if lt . now.Year }}{{ . }} - {{ end }}{{ now.Year -}}
+            </span> {{- else -}}
+            <span itemprop="copyrightYear">{{ now.Year }}</span> {{- end -}} {{- end -}} {{- /* Author */ -}} {{- if ne
+            .Site.Params.footer.author false -}}
+            <span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="{{ $.Site.Author.link | default .Site.Home.RelPermalink }}" target="_blank">{{
+                    .Site.Author.name }}</a></span> {{- end -}} {{- /* License */ -}} {{- with
+            .Site.Params.footer.license
+            -}} &nbsp;|&nbsp;
+            <span class="license">{{ . | safeHTML }}</span> {{- end -}} {{- /* ICP */ -}} {{- with
+            .Site.Params.footer.icp -}}
+            <span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br" />
+            <span class="icp">{{ . | safeHTML }}</span> {{- end -}}
+        </div>
+    </div>
+
+    <!-- 不蒜子Busuanzi站点访问量（PV：页面浏览量，非独立访客） -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量（PV）<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <!-- Live2D Widget：小屏默认不加载，可点右下角按钮关闭并记住选择 -->
+    <style>
+        #live2d-toggle {
+            position: fixed; right: 12px; bottom: 12px; z-index: 9999;
+            font-size: 12px; padding: 4px 8px; border: 1px solid #ccc;
+            border-radius: 12px; background: rgba(255,255,255,.85); cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            #live2d-toggle { display: none; }
+        }
+    </style>
+    <script>
+        (function () {
+            if (localStorage.getItem('live2d-hidden') === '1') return;
+            if (window.innerWidth <= 768) return;
+            var s = document.createElement('script');
+            s.src = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js';
+            document.body.appendChild(s);
+            var btn = document.createElement('button');
+            btn.id = 'live2d-toggle';
+            btn.textContent = '隐藏看板娘';
+            btn.onclick = function () {
+                localStorage.setItem('live2d-hidden', '1');
+                var w = document.querySelector('#live2d-widget, #live2dcanvas');
+                if (w) w.style.display = 'none';
+                btn.remove();
+            };
+            document.body.appendChild(btn);
+        })();
+    </script>
+
+</footer>
+{{- end -}}
