@@ -77,7 +77,7 @@ publishDir = "public"
     subtitle = "标书囚我白昼，博客赎我长夜。"   
     typeit = true
     social = true
-    disclaimer = "我不知道世界是什么，但我知道我在观察它。"
+    disclaimer = "我唯一知道的，就是我一无所知。"
 
   # 2025 唯一新增：评论区（不加也行，想加了再打开）
   [params.page.comment]
@@ -118,7 +118,7 @@ publishDir = "public"
     Xing = ""
     Snapchat = ""
     Soundcloud = ""
-    Spotify = "a95wg72mcqd8i9cp6ecvlqign"
+    Spotify = ""
     Bandcamp = ""
     Paypal = ""
     Fivehundredpx = ""
