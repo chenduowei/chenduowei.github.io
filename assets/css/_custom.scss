@@ -1669,3 +1669,27 @@ body[theme="dark"] .home-avatar img {
     padding: calc(3.5rem + 20px) 20px 20px;
   }
 }
+
+// ---------- 搜索框图标与清除按钮垂直居中 ----------
+// Pagefind 原生按 64px 输入框定位：放大镜 top:23px、清除按钮高 58px，中心都在 32px 处；
+// 本站输入框已收到 32px，两者都没跟着改（放大镜偏下、清除按钮溢出）。
+// 注意：以下数值与输入框 32px 高度配对，改高度时同步改这里。
+#pagefind-search-desktop .pagefind-ui__form::before,
+#pagefind-search-mobile .pagefind-ui__form::before {
+  top: 7px; /* (32 - 18) / 2，图标本身 18px 高 */
+}
+
+#pagefind-search-desktop .pagefind-ui__search-clear,
+#pagefind-search-mobile .pagefind-ui__search-clear {
+  top: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* 不再用 Pagefind 的白底，避免在灰色输入框上露出一块白 */
+}
+
+// 输入框字号 21px 在 32px 高里显挤，收到 16px（与正文字号一致）
+#pagefind-search-desktop .pagefind-ui__search-input,
+#pagefind-search-mobile .pagefind-ui__search-input {
+  font-size: 16px;
+}
