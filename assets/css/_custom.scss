@@ -9,7 +9,7 @@
 
 // ---------- 基础：页面底色与平滑滚动 ----------
 body {
-  background-color: #f5f5f7;
+  background-color: #F2F2F7;
 }
 
 html {
@@ -17,7 +17,7 @@ html {
 }
 
 body[theme="dark"] {
-  background-color: #1c1c1e;
+  background-color: #000000;
 }
 
 // 交互过渡：只针对颜色 / 阴影 / 位移，不过度动画
@@ -28,9 +28,22 @@ button,
 .pagination a,
 #back-to-top,
 .pagefind-ui__search-input,
-.post-tags a {
-  transition: color .25s ease, background-color .25s ease,
-    border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+.post-tags a,
+body,
+#header-desktop,
+.page.single,
+#comments,
+.archive,
+#toc-auto,
+#toc-static,
+#post-footer .post-nav a,
+.categories-card .card-item,
+footer .footer-container {
+  transition: color .25s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color .35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color .35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow .35s cubic-bezier(0.32, 0.72, 0, 1),
+    transform .35s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 // ---------- 顶栏：磨砂玻璃 + 单行 + 发丝线 ----------
@@ -281,8 +294,8 @@ body[theme="dark"] .home .home-profile .links a:hover {
 // ---------- 首页文章：列表改圆角卡片 ----------
 .home[posts] .summary {
   background-color: #fff;
-  border: none;
-  border-radius: 18px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  border-radius: 16px;
   padding: 20px 22px;
   margin-bottom: 16px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
@@ -356,9 +369,9 @@ body[theme="dark"] .home .home-profile .links a:hover {
 }
 
 body[theme="dark"] .home[posts] .summary {
-  background-color: #2c2c2e;
-  box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, .06);
+  background-color: #1C1C1E;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(84, 84, 88, 0.65);
 }
 
 body[theme="dark"] .home[posts] .summary .single-title a {
@@ -387,7 +400,8 @@ body[theme="dark"] .home[posts] .summary .post-footer .post-tags a:hover {
 // .page.single 只命中文章页与独立页，首页摘要是 .single.summary，不受影响
 .page.single {
   background-color: #fff;
-  border-radius: 20px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  border-radius: 16px;
   padding: 32px 36px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
 }
@@ -515,7 +529,7 @@ body[theme="dark"] .page.single .content p code,
 body[theme="dark"] .page.single .content li code,
 body[theme="dark"] .page.single .content td code {
   background-color: rgba(255, 255, 255, .08);
-  color: #e5bf78;
+  color: #ff7b72;
 }
 
 // 代码块：圆角容器
@@ -536,9 +550,9 @@ body[theme="dark"] .page.single .content hr {
 
 // 文章页深色卡片
 body[theme="dark"] .page.single {
-  background-color: #2c2c2e;
-  box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, .06);
+  background-color: #1C1C1E;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(84, 84, 88, 0.65);
 }
 
 body[theme="dark"] .page.single .content {
@@ -675,22 +689,24 @@ body[theme="dark"] #post-footer .post-nav a:hover {
 // ---------- 评论区容器：圆角卡片（iframe 内部按钮颜色改不了，只弱化容器） ----------
 #comments {
   background-color: #fff;
-  border-radius: 18px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  border-radius: 16px;
   padding: 20px;
   margin-top: 16px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
 }
 
 body[theme="dark"] #comments {
-  background-color: #2c2c2e;
-  box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, .06);
+  background-color: #1C1C1E;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(84, 84, 88, 0.65);
 }
 
 // ---------- 归档 / 分类 / 标签页：卡片 + 发丝线 ----------
 .archive {
   background-color: #fff;
-  border-radius: 18px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  border-radius: 16px;
   padding: 20px 22px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
 }
@@ -719,9 +735,9 @@ body[theme="dark"] #comments {
 }
 
 body[theme="dark"] .archive {
-  background-color: #2c2c2e;
-  box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, .06);
+  background-color: #1C1C1E;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(84, 84, 88, 0.65);
 }
 
 body[theme="dark"] .archive-item {
@@ -868,4 +884,577 @@ body[theme="dark"] body #live2d-toggle {
   #comments {
     padding: 16px;
   }
+}
+
+// ============================================================
+// 第二轮打磨（2026-11-02）：与投标工作台设计 token 对齐 + 搜索/目录/深色细节
+// 注意：Pagefind 自带样式用了 svelte 作用域类名（三个类叠加），
+// 普通类名选择器拼不过它，所以下面所有搜索相关覆盖一律用容器 id 限定。
+// ============================================================
+
+// ---------- 字体：与投标工作台同一套字体栈 ----------
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+// ---------- 次要文字统一：浅 #6C6C70 / 深 #98989F（投标工作台 muted） ----------
+.home[posts] .summary .post-meta,
+.page.single .post-meta,
+.home .home-profile .home-subtitle,
+#post-footer .post-info,
+.page.single .content figure .image-caption,
+footer .footer-container,
+footer .footer-container a,
+.archive-item-date,
+.tag-cloud-tags a sup {
+  color: #6C6C70;
+}
+
+body[theme="dark"] .home[posts] .summary .post-meta,
+body[theme="dark"] .page.single .post-meta,
+body[theme="dark"] .home .home-profile .home-subtitle,
+body[theme="dark"] #post-footer .post-info,
+body[theme="dark"] .page.single .content figure .image-caption,
+body[theme="dark"] footer .footer-container,
+body[theme="dark"] footer .footer-container a,
+body[theme="dark"] .archive-item-date,
+body[theme="dark"] .tag-cloud-tags.tag-cloud-tags a sup,
+body[theme="dark"] .pagination li .page-link {
+  color: #98989F;
+}
+
+// ---------- 键盘焦点环 + 按压回弹（投标工作台同款触感） ----------
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #007AFF;
+  outline-offset: 2px;
+}
+
+body[theme="dark"] a:focus-visible,
+body[theme="dark"] button:focus-visible {
+  outline-color: #0A84FF;
+}
+
+.pagination li a:active,
+.post-tags a:active,
+#post-footer .post-nav a:active,
+#back-to-top:active {
+  transform: scale(0.97);
+}
+
+// 页脚数字等宽：运行天数秒数跳动时不再左右抖
+footer .footer-container {
+  font-variant-numeric: tabular-nums;
+}
+
+// ---------- 搜索框：投标工作台同款填充灰 + 实色聚焦环 + 大屏聚焦时展开 ----------
+#pagefind-search-desktop {
+  transition: width .35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media only screen and (min-width: 1200px) {
+  #pagefind-search-desktop:focus-within {
+    width: 300px;
+  }
+}
+
+#pagefind-search-desktop .pagefind-ui__search-input,
+#pagefind-search-mobile .pagefind-ui__search-input {
+  background-color: rgba(120, 120, 128, 0.14);
+}
+
+#pagefind-search-desktop .pagefind-ui__search-input:focus,
+#pagefind-search-mobile .pagefind-ui__search-input:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 2px #007AFF;
+}
+
+#pagefind-search-desktop .pagefind-ui__search-clear,
+#pagefind-search-mobile .pagefind-ui__search-clear {
+  color: #6C6C70;
+  font-size: 13px;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__search-input,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__search-input {
+  background-color: rgba(120, 120, 128, 0.28);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__search-input:focus,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__search-input:focus {
+  background-color: #1C1C1E;
+  box-shadow: 0 0 0 2px #0A84FF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__search-input::placeholder,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__search-input::placeholder {
+  color: #98989F;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__search-clear,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__search-clear {
+  color: #98989F;
+}
+
+// ---------- 搜索结果：纵向排列 + 去缩略图 + 行反馈 + 摘要截断 + 蓝色高亮 ----------
+#pagefind-search-desktop .pagefind-ui__drawer,
+#pagefind-search-mobile .pagefind-ui__drawer {
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__drawer,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__drawer {
+  border-color: rgba(84, 84, 88, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+#pagefind-search-desktop .pagefind-ui__results-area,
+#pagefind-search-mobile .pagefind-ui__results-area {
+  margin-top: 0;
+}
+
+// 缩略图位是破图重灾区，且挤压标题：直接去掉，恢复左对齐文本布局
+#pagefind-search-desktop .pagefind-ui__result-thumb,
+#pagefind-search-mobile .pagefind-ui__result-thumb {
+  display: none;
+}
+
+#pagefind-search-desktop .pagefind-ui__result,
+#pagefind-search-mobile .pagefind-ui__result {
+  border-top: none;
+  border-bottom: 1px solid rgba(60, 60, 67, 0.12);
+  padding: 12px 16px;
+  gap: 0;
+}
+
+#pagefind-search-desktop .pagefind-ui__result:last-of-type,
+#pagefind-search-mobile .pagefind-ui__result:last-of-type {
+  border-bottom: none;
+}
+
+#pagefind-search-desktop .pagefind-ui__result:hover,
+#pagefind-search-mobile .pagefind-ui__result:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+#pagefind-search-desktop .pagefind-ui__result-title a,
+#pagefind-search-mobile .pagefind-ui__result-title a {
+  color: #1C1C1E;
+  font-weight: 600;
+}
+
+#pagefind-search-desktop .pagefind-ui__result-title a:hover,
+#pagefind-search-mobile .pagefind-ui__result-title a:hover {
+  color: #007AFF;
+}
+
+// 摘要最多两行，Pagefind 的多段碎片不再把卡片撑高
+#pagefind-search-desktop .pagefind-ui__result-excerpt,
+#pagefind-search-mobile .pagefind-ui__result-excerpt {
+  color: #6C6C70;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// 关键词高亮：黄底改系统蓝淡底，深色下不再刺眼
+#pagefind-search-desktop mark,
+#pagefind-search-mobile mark {
+  background-color: rgba(0, 122, 255, 0.15);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+// 子结果（站内小节）：弱化显示
+#pagefind-search-desktop .pagefind-ui__result-nested,
+#pagefind-search-mobile .pagefind-ui__result-nested {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+#pagefind-search-desktop .pagefind-ui__result-nested a,
+#pagefind-search-mobile .pagefind-ui__result-nested a {
+  color: #6C6C70;
+}
+
+#pagefind-search-desktop .pagefind-ui__result-nested a:hover,
+#pagefind-search-mobile .pagefind-ui__result-nested a:hover {
+  color: #007AFF;
+}
+
+// 计数行：不再是粗体大字
+#pagefind-search-desktop .pagefind-ui__message,
+#pagefind-search-mobile .pagefind-ui__message {
+  color: #6C6C70;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px 8px;
+  height: auto;
+}
+
+// 加载更多：收成 40px 圆角按钮
+#pagefind-search-desktop .pagefind-ui__button,
+#pagefind-search-mobile .pagefind-ui__button {
+  height: 40px;
+  border-radius: 12px;
+  margin: 12px 16px 16px;
+  width: calc(100% - 32px);
+  font-size: 14px;
+  font-weight: 600;
+  border-color: rgba(60, 60, 67, 0.12);
+}
+
+#pagefind-search-desktop .pagefind-ui__button:hover,
+#pagefind-search-mobile .pagefind-ui__button:hover {
+  border-color: #007AFF;
+}
+
+// 键盘选中的结果行（JS 方向键导航用）
+#pagefind-search-desktop .pagefind-ui__result.kb-active,
+#pagefind-search-mobile .pagefind-ui__result.kb-active {
+  background-color: rgba(0, 122, 255, 0.10);
+}
+
+#pagefind-search-desktop .pagefind-ui__result.kb-active .pagefind-ui__result-title a,
+#pagefind-search-mobile .pagefind-ui__result.kb-active .pagefind-ui__result-title a {
+  color: #007AFF;
+}
+
+// Esc 关闭后的状态（JS 加 class，关键词保留）
+.pagefind-search.pagefind-closed .pagefind-ui__drawer {
+  display: none;
+}
+
+// 空结果提示（JS 在无结果时追加）
+.pagefind-empty-hint {
+  padding: 2px 16px 16px;
+  font-size: 13px;
+  color: #6C6C70;
+  line-height: 1.6;
+}
+
+.pagefind-empty-hint a {
+  color: #007AFF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result:hover,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result-title a,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result-title a {
+  color: #FFFFFF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result-title a:hover,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result-title a:hover {
+  color: #0A84FF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result-excerpt,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result-excerpt {
+  color: #98989F;
+}
+
+body[theme="dark"] #pagefind-search-desktop mark,
+body[theme="dark"] #pagefind-search-mobile mark {
+  background-color: rgba(10, 132, 255, 0.30);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result-nested a,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result-nested a {
+  color: #98989F;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result-nested a:hover,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result-nested a:hover {
+  color: #0A84FF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__message,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__message {
+  color: #98989F;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__button,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__button {
+  border-color: rgba(84, 84, 88, 0.65);
+  color: #0A84FF;
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result.kb-active,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result.kb-active {
+  background-color: rgba(10, 132, 255, 0.18);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__result.kb-active .pagefind-ui__result-title a,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__result.kb-active .pagefind-ui__result-title a {
+  color: #0A84FF;
+}
+
+body[theme="dark"] .pagefind-empty-hint {
+  color: #98989F;
+}
+
+body[theme="dark"] .pagefind-empty-hint a {
+  color: #0A84FF;
+}
+
+// ---------- 目录：去掉 | 符、当前项统一系统蓝、静态目录改内嵌面板、搜索时淡出 ----------
+#toc-auto .toc-content ul a:first-child::before,
+#toc-static .toc-content ul a:first-child::before {
+  content: none;
+}
+
+#toc-auto .toc-content ul {
+  text-indent: 0;
+  padding-left: 0;
+}
+
+#toc-auto .toc-content ul ul {
+  padding-left: 1.25rem;
+}
+
+#toc-static .toc-content ul {
+  text-indent: 0;
+}
+
+#toc-static .toc-content > nav > ul {
+  padding-left: 1rem;
+}
+
+#toc-auto .toc-content a.active {
+  color: #007AFF;
+  font-weight: 600;
+}
+
+#toc-auto .toc-content a:hover {
+  color: #007AFF;
+}
+
+body[theme="dark"] #toc-auto .toc-content a.active {
+  color: #0A84FF;
+}
+
+body[theme="dark"] #toc-auto .toc-content a:hover {
+  color: #0A84FF;
+}
+
+// 静态目录在文章卡片内部：不再套一层白卡片，改浅灰内嵌面板
+#toc-static {
+  background-color: #F2F2F7;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+}
+
+#toc-static .toc-title {
+  background: transparent;
+}
+
+#toc-static .toc-content {
+  background: transparent;
+}
+
+body[theme="dark"] #toc-static {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  box-shadow: none;
+}
+
+// 悬浮目录：抬升层阴影与边框与投标工作台深色一致
+#toc-auto {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  transition: color .25s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color .35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color .35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow .35s cubic-bezier(0.32, 0.72, 0, 1),
+    transform .35s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity .25s ease;
+}
+
+body[theme="dark"] #toc-auto {
+  border-color: rgba(84, 84, 88, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+// 搜索时目录淡出，不再与结果下拉抢位置
+body:has(#pagefind-search-desktop:focus-within) #toc-auto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+// ---------- 归档页：顶部与顶栏拉开间隙、标题左对齐、分隔线与日期对比度 ----------
+.page.archive {
+  margin: 16px auto 0;
+}
+
+.archive .single-title {
+  text-align: left;
+}
+
+.archive-item {
+  border-bottom-color: rgba(60, 60, 67, 0.12);
+}
+
+body[theme="dark"] .archive-item {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body[theme="dark"] .archive-item a {
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .archive-item-link:hover {
+  color: #0A84FF;
+}
+
+// ---------- 标签云：统一尺寸的 pill，不再随数量忽大忽小、行距不均 ----------
+.tag-cloud-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-cloud-tags a {
+  font-size: 14px !important;
+  margin: 0;
+  padding: 6px 12px;
+  background-color: #f2f2f7;
+  border-radius: 999px;
+  color: #1C1C1E;
+}
+
+.tag-cloud-tags a:hover {
+  transform: none;
+  color: #007AFF;
+  background-color: rgba(0, 122, 255, 0.1);
+}
+
+.tag-cloud-tags a sup {
+  margin-left: 2px;
+}
+
+body[theme="dark"] .tag-cloud-tags a {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .tag-cloud-tags a:hover {
+  color: #0A84FF;
+  background-color: rgba(10, 132, 255, 0.18);
+}
+
+// ---------- 分页：连成一条分段控件，不再是散落的圆圈 ----------
+.pagination {
+  width: fit-content;
+  margin: 1rem auto 0;
+  background-color: rgba(120, 120, 128, 0.14);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.pagination li {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.pagination li a {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 6px 14px;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: #1C1C1E;
+}
+
+.pagination li a:hover {
+  color: #007AFF;
+  border-color: transparent;
+}
+
+.pagination li.active a {
+  background-color: #007AFF;
+  color: #fff;
+}
+
+.pagination li .page-link {
+  color: #6C6C70;
+  padding: 6px 8px;
+  display: inline-block;
+}
+
+body[theme="dark"] .pagination {
+  background-color: rgba(120, 120, 128, 0.28);
+}
+
+body[theme="dark"] .pagination li a {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .pagination li a:hover {
+  color: #0A84FF;
+  border-color: transparent;
+}
+
+body[theme="dark"] .pagination li.active a {
+  background-color: #0A84FF;
+  color: #fff;
+}
+
+// ---------- 悬浮按钮：深色选择器修正 + 抬升层阴影 ----------
+#back-to-top {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+body #live2d-toggle {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+body[theme="dark"] #back-to-top {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+body[theme="dark"] #live2d-toggle {
+  background-color: rgba(44, 44, 46, 0.85);
+  border-color: rgba(84, 84, 88, 0.65);
+  color: #c9c9cf;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+// ---------- 看板娘气泡：浅色改白卡片、深色改深灰，不再是米黄 ----------
+body #waifu-tips {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #1C1C1E;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+body[theme="dark"] #waifu-tips {
+  background-color: rgba(44, 44, 46, 0.92);
+  color: #f5f5f7;
+  border-color: rgba(84, 84, 88, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+// ---------- 首页摘要：末段底边距归零，底部行间距不再忽大忽小 ----------
+.home[posts] .summary .content > :last-child {
+  margin-bottom: 0;
 }

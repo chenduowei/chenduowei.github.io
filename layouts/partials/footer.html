@@ -120,8 +120,97 @@
 <script>
   window.addEventListener('DOMContentLoaded', function () {
     if (!window.PagefindUI) return;
-    var opts = { showSubResults: true, pageSize: 10, translations: { placeholder: "搜索文章..." } };
+    var opts = { showSubResults: true, pageSize: 6, translations: { placeholder: "搜索文章..." } };
     new PagefindUI(Object.assign({ element: "#pagefind-search-desktop" }, opts));
     new PagefindUI(Object.assign({ element: "#pagefind-search-mobile" }, opts));
+  });
+</script>
+{{/* 搜索体验补强：键盘导航 / Esc 只关不清空 / 快捷键聚焦 / 空结果提示 / 回到顶部平滑滚动 */}}
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    // "/" 或 Cmd/Ctrl+K 聚焦搜索框（不在输入框里打字时才生效）
+    document.addEventListener('keydown', function (e) {
+      var t = e.target, tag = (t.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || t.isContentEditable) return;
+      if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+        var input = document.querySelector('#pagefind-search-desktop .pagefind-ui__search-input')
+          || document.querySelector('#pagefind-search-mobile .pagefind-ui__search-input');
+        if (input) { e.preventDefault(); input.focus(); }
+      }
+    });
+
+    // 每个搜索框：方向键导航 + 回车打开 + Esc 只关下拉不清空关键词
+    ['#pagefind-search-desktop', '#pagefind-search-mobile'].forEach(function (sel) {
+      var root = document.querySelector(sel);
+      if (!root) return;
+      var idx = -1;
+      function links() {
+        return Array.prototype.slice.call(root.querySelectorAll('.pagefind-ui__result-title a'));
+      }
+      function clearActive() {
+        root.querySelectorAll('.kb-active').forEach(function (el) { el.classList.remove('kb-active'); });
+        idx = -1;
+      }
+      root.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Enter') return;
+        var items = links();
+        if (!items.length) return;
+        e.preventDefault();
+        if (e.key === 'Enter') {
+          (idx >= 0 ? items[idx] : items[0]).click();
+          return;
+        }
+        if (idx >= 0 && items[idx]) items[idx].closest('.pagefind-ui__result').classList.remove('kb-active');
+        idx = e.key === 'ArrowDown' ? Math.min(idx + 1, items.length - 1) : Math.max(idx - 1, 0);
+        var row = items[idx].closest('.pagefind-ui__result');
+        row.classList.add('kb-active');
+        row.scrollIntoView({ block: 'nearest' });
+      });
+      root.addEventListener('input', function () { clearActive(); root.classList.remove('pagefind-closed'); }, true);
+      root.addEventListener('focus', function () { root.classList.remove('pagefind-closed'); }, true);
+      root.addEventListener('mouseover', function (e) {
+        var row = e.target.closest ? e.target.closest('.pagefind-ui__result') : null;
+        if (row && row.classList.contains('kb-active')) { row.classList.remove('kb-active'); idx = -1; }
+      });
+      // 空结果提示：只有“有提示语、无结果”时才出现一次
+      var drawer = root.querySelector('.pagefind-ui__drawer');
+      if (drawer && window.MutationObserver) {
+        new MutationObserver(function () {
+          var hasMsg = !!drawer.querySelector('.pagefind-ui__message');
+          var hasResult = !!drawer.querySelector('.pagefind-ui__result');
+          var hint = drawer.querySelector('.pagefind-empty-hint');
+          if (hasMsg && !hasResult && !hint) {
+            var d = document.createElement('div');
+            d.className = 'pagefind-empty-hint';
+            d.innerHTML = '换个关键词试试，或者去<a href="/posts/">归档</a>、<a href="/tags/">标签</a>逛逛。';
+            drawer.appendChild(d);
+          } else if (hasResult && hint) {
+            hint.remove();
+          }
+        }).observe(drawer, { childList: true, subtree: true });
+      }
+    });
+
+    // Esc 只关下拉、不清空：捕获阶段拦截 Pagefind 内部的清空行为
+    window.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var input = document.activeElement;
+      if (!input || !input.classList || !input.classList.contains('pagefind-ui__search-input')) return;
+      if (!input.value) return;
+      e.stopPropagation();
+      e.preventDefault();
+      var container = input.closest('#pagefind-search-desktop, #pagefind-search-mobile');
+      if (container) container.classList.add('pagefind-closed');
+      input.blur();
+    }, true);
+
+    // 回到顶部：平滑滚动，且不改 URL
+    var topBtn = document.getElementById('back-to-top');
+    if (topBtn) {
+      topBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
   });
 </script>
