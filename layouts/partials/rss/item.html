@@ -1,4 +1,4 @@
-{{- $params := .Page.Params | merge .Site.Params.Page | merge (dict "author" .Site.Author.name) -}}
+{{- $params := .Page.Params | merge .Site.Params.Page | merge (dict "author" .Site.Params.author.name) -}}
 <item>
     <title>
         {{- .Page.Title -}}
@@ -11,7 +11,7 @@
     </pubDate>
     <author>
         {{- /* 修复 LoveIt 主题 bug：原模板用 .params.author（不存在的字段）导致 RSS 作者恒为“作者”；改用 $params.author 并回退到站点作者 */ -}}
-        {{- $params.author | default .Site.Author.name | default (T "author") -}}
+        {{- $params.author | default .Site.Params.author.name | default (T "author") -}}
     </author>
     <guid>
         {{- .Page.Permalink -}}

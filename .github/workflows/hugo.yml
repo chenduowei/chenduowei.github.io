@@ -31,11 +31,15 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.123.8'
+          hugo-version: '0.168.0'
           extended: true
 
       - name: Build
         run: hugo --minify
+
+      # 搜索索引：Pagefind 在构建产物上生成（替代旧 Lunr 的 index.json），版本钉在本地实测过的 1.6.0
+      - name: Build search index
+        run: npx -y pagefind@1.6.0 --site public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

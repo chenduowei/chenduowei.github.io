@@ -1,6 +1,6 @@
 baseURL = "https://chenduowei.github.io"
 defaultContentLanguage = "zh-cn"
-languageCode = "zh-CN"
+locale = "zh-CN"
 hasCJKLanguage = true
 title = "Duowei Chen の Blog"
 theme = "LoveIt"
@@ -38,6 +38,7 @@ publishDir = "public"
     weight = 5
 
 [params]
+
   version = "0.2.X"
   description = "陈多伟的个人博客"   # 低调到底，终极逼格
   keywords = ["陈多伟", "博客", "标书", "思考", "生活随笔"]
@@ -49,18 +50,6 @@ publishDir = "public"
   # 页脚版权说明：原创文章转载请注明出处
   [params.footer]
     license = "原创文章采用 CC BY-NC-SA 4.0，转载请注明出处"
-
-  # 站内搜索：Lunr 本地索引，无需第三方服务
-  # 需配合底部的 [outputs] home 包含 JSON 才能生成搜索索引
-  [params.search]
-    enable = true
-    type = "lunr"
-    contentLength = 4000
-    placeholder = "搜索文章标题或内容..."
-    maxResultLength = 10
-    snippetLength = 50
-    highlightTag = "em"
-    absoluteURL = false
 
   [params.header.title]
     logo = ""
@@ -179,13 +168,15 @@ publishDir = "public"
   fingerprint = true
 
 # 作者名字设置（加了这行，首页和文章页就显示你的名字了）
-[author]
+
+# 搜索索引不再用 index.json：Pagefind 在 hugo 构建后扫描 public/ 生成（见 workflow 的 pagefind 步骤）
+# 作者信息（Hugo 0.168 起 .Site.Author 已移除，改走 params.author）
+[params.author]
   name = "陈多伟"
   email = "duowei_chen@outlook.com"
 
-# 输出格式：home 必须包含 JSON，Lunr 搜索索引（index.json）才会被生成
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS"]
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
