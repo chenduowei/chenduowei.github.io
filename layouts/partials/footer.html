@@ -125,26 +125,3 @@
     new PagefindUI(Object.assign({ element: "#pagefind-search-mobile" }, opts));
   });
 </script>
-<style>
-  /* 搜索框：桌面端定宽，移动端随菜单宽度 */
-  .pagefind-search { position: relative; }
-  #pagefind-search-desktop { width: 220px; }
-  .pagefind-search .pagefind-ui__form { margin-bottom: 0; }
-  /* 桌面端结果面板：用 fixed 定位，直接脱离顶栏。主题 .menu 的 overflow:hidden 会裁剪 absolute 下拉层，且其 ID 选择器优先级高于 :has 覆盖，故不用 absolute/:has 方案；定位参数沿用主题旧搜索下拉的约定：顶栏高 3.5rem、右距 2rem、宽 30rem */
-  #pagefind-search-desktop .pagefind-ui__drawer { position: fixed; top: 3.5rem; right: 2rem; width: 30rem; max-height: 70vh; overflow-y: auto; z-index: 200; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
-  /* 移动端结果面板：菜单面板本身不裁剪，用 absolute 跟随输入框 */
-  #pagefind-search-mobile .pagefind-ui__drawer { position: absolute; left: 0; right: 0; top: 100%; z-index: 200; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
-  /* 浅色模式：按 LoveIt 浅色色板给边框和文字足够的对比度（默认浅灰边框在浅色顶栏上几乎看不清） */
-  .pagefind-ui {
-    --pagefind-ui-primary: #161209;
-    --pagefind-ui-text: #161209;
-    --pagefind-ui-border: #cccccc;
-  }
-  body[theme="dark"] .pagefind-ui {
-    --pagefind-ui-primary: #a9a9b3;
-    --pagefind-ui-text: #a9a9b3;
-    --pagefind-ui-background: #292a2d;
-    --pagefind-ui-border: #363636;
-    --pagefind-ui-tag: #363636;
-  }
-</style>

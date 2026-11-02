@@ -1,0 +1,871 @@
+// ============================================================
+// iOS 风格全局优化（2026-11-02）
+// 全部收进这一个文件：不动主题源码，删掉本文件即回滚。
+// 设计语言：iOS + FlClash 最新版那种干净圆润——
+// 唯一强调色：浅色 #007AFF / 深色 #0A84FF；灰阶用 iOS 系统灰；
+// 圆角 12–20px；阴影只用一层柔和投影；紧凑但留呼吸感。
+// 注意：本文件由主题 style.scss 最后引入，优先级高于主题样式。
+// ============================================================
+
+// ---------- 基础：页面底色与平滑滚动 ----------
+body {
+  background-color: #f5f5f7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body[theme="dark"] {
+  background-color: #1c1c1e;
+}
+
+// 交互过渡：只针对颜色 / 阴影 / 位移，不过度动画
+a,
+button,
+.menu-item,
+.summary,
+.pagination a,
+#back-to-top,
+.pagefind-ui__search-input,
+.post-tags a {
+  transition: color .25s ease, background-color .25s ease,
+    border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+// ---------- 顶栏：磨砂玻璃 + 单行 + 发丝线 ----------
+#header-desktop {
+  background-color: rgba(248, 248, 248, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, .08);
+  box-shadow: none;
+}
+
+body[theme="dark"] #header-desktop {
+  background-color: rgba(28, 28, 30, .72);
+  border-bottom-color: rgba(255, 255, 255, .12);
+}
+
+// 顶栏强制单行：标题可截断，菜单可收缩，不再挤成两行
+#header-desktop .header-wrapper {
+  flex-wrap: nowrap;
+}
+
+#header-desktop .header-title {
+  min-width: 0;
+}
+
+#header-desktop .menu {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+// 导航：悬停 pill 底色，激活态用系统蓝 + 600 字重（不再用 900 特粗）
+#header-desktop .header-wrapper .menu .menu-item {
+  border-radius: 8px;
+}
+
+#header-desktop .header-wrapper .menu a.menu-item:hover {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+#header-desktop .header-wrapper .menu a.menu-item.active {
+  color: #007AFF;
+  font-weight: 600;
+}
+
+body[theme="dark"] #header-desktop .header-wrapper .menu a.menu-item:hover {
+  background-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] #header-desktop .header-wrapper .menu a.menu-item.active {
+  color: #0A84FF;
+}
+
+// ---------- 搜索框：iOS 搜索栏样式 ----------
+// 注意：容器必须是 inline-block，否则 width 在 span 上不起作用
+//（这就是之前顶栏被挤成两行的直接原因之一）
+.pagefind-search {
+  position: relative;
+}
+
+#pagefind-search-desktop {
+  display: inline-block;
+  vertical-align: middle;
+  width: 220px;
+}
+
+@media only screen and (max-width: 1200px) {
+  #pagefind-search-desktop {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #pagefind-search-desktop {
+    width: 150px;
+  }
+
+  #header-desktop .menu .menu-item {
+    margin: 0 .3rem;
+  }
+}
+
+.pagefind-ui__search-input {
+  width: 100%;
+  height: 36px;
+  box-sizing: border-box;
+  border: none !important;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, .05);
+  color: #1d1d1f;
+}
+
+.pagefind-ui__search-input::placeholder {
+  color: #8e8e93;
+}
+
+.pagefind-ui__search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, .3);
+  background-color: rgba(0, 0, 0, .04);
+}
+
+body[theme="dark"] .pagefind-ui__search-input {
+  background-color: rgba(255, 255, 255, .1);
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .pagefind-ui__search-input:focus {
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, .4);
+  background-color: rgba(255, 255, 255, .12);
+}
+
+// Pagefind 品牌变量：与全站强调色统一
+.pagefind-ui {
+  --pagefind-ui-primary: #007AFF;
+  --pagefind-ui-text: #1d1d1f;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #e5e5ea;
+  --pagefind-ui-tag: #f2f2f7;
+}
+
+body[theme="dark"] .pagefind-ui {
+  --pagefind-ui-primary: #0A84FF;
+  --pagefind-ui-text: #f5f5f7;
+  --pagefind-ui-background: #2c2c2e;
+  --pagefind-ui-border: #38383a;
+  --pagefind-ui-tag: #3a3a3c;
+}
+
+// 搜索结果面板：悬浮卡片（桌面端 fixed 脱离顶栏裁剪，移动端跟随输入框）
+.pagefind-search .pagefind-ui__form {
+  margin-bottom: 0;
+}
+
+#pagefind-search-desktop .pagefind-ui__drawer {
+  position: fixed;
+  top: calc(3.5rem + 8px);
+  right: 2rem;
+  width: 30rem;
+  max-width: calc(100vw - 2rem);
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 200;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+}
+
+#pagefind-search-mobile .pagefind-ui__drawer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 200;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+}
+
+body[theme="dark"] #pagefind-search-desktop .pagefind-ui__drawer,
+body[theme="dark"] #pagefind-search-mobile .pagefind-ui__drawer {
+  background-color: #2c2c2e;
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.pagefind-ui__result {
+  border-bottom: 1px solid #f2f2f7;
+  padding: 12px 16px;
+}
+
+.pagefind-ui__result:last-child {
+  border-bottom: none;
+}
+
+.pagefind-ui__result-title a {
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
+.pagefind-ui__result-title a:hover {
+  color: #007AFF;
+}
+
+.pagefind-ui__result-excerpt {
+  color: #8e8e93;
+}
+
+.pagefind-ui__message {
+  color: #8e8e93;
+  font-size: .875rem;
+  padding: 12px 16px 4px;
+}
+
+body[theme="dark"] .pagefind-ui__result {
+  border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] .pagefind-ui__result-title a {
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .pagefind-ui__result-title a:hover {
+  color: #0A84FF;
+}
+
+// ---------- 首页个人区：间距收齐，社交图标变圆钮 ----------
+.home[posts] .home-profile {
+  padding-top: 1.5rem;
+}
+
+.home .home-profile .home-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.home .home-profile .home-subtitle {
+  color: #8e8e93;
+}
+
+.home .home-profile .links a {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, .05);
+  margin: 0 4px;
+}
+
+.home .home-profile .links a:hover {
+  background-color: rgba(0, 122, 255, .12);
+  color: #007AFF;
+}
+
+body[theme="dark"] .home .home-profile .links a {
+  background-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] .home .home-profile .links a:hover {
+  background-color: rgba(10, 132, 255, .18);
+  color: #0A84FF;
+}
+
+// ---------- 首页文章：列表改圆角卡片 ----------
+.home[posts] .summary {
+  background-color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+.home[posts] .summary .single-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.home[posts] .summary .single-title a:hover {
+  color: #007AFF;
+}
+
+.home[posts] .summary .post-meta {
+  color: #8e8e93;
+  font-size: .85rem;
+}
+
+.home[posts] .summary .content {
+  color: #3a3a3c;
+  line-height: 1.7;
+}
+
+.home[posts] .summary .featured-image-preview {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.home[posts] .summary .featured-image-preview img {
+  border-radius: 12px;
+}
+
+// 卡片底部：阅读全文与标签分行排列，不再挤在一行换行错乱
+.home[posts] .summary .post-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.home[posts] .summary .post-footer > a {
+  color: #007AFF;
+  font-weight: 600;
+}
+
+// 标签 pill：用 font-size: 0 藏掉模板里标签之间的逗号文本
+.home[posts] .summary .post-footer .post-tags {
+  font-size: 0;
+}
+
+.home[posts] .summary .post-footer .post-tags i {
+  font-size: .85rem;
+  color: #8e8e93;
+}
+
+.home[posts] .summary .post-footer .post-tags a {
+  font-size: .8rem;
+  color: #666;
+  background-color: #f2f2f7;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin: 0 3px;
+  display: inline-block;
+}
+
+.home[posts] .summary .post-footer .post-tags a:hover {
+  color: #007AFF;
+  background-color: rgba(0, 122, 255, .1);
+}
+
+body[theme="dark"] .home[posts] .summary {
+  background-color: #2c2c2e;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+body[theme="dark"] .home[posts] .summary .single-title a {
+  color: #f5f5f7;
+}
+
+body[theme="dark"] .home[posts] .summary .content {
+  color: #c9c9cf;
+}
+
+body[theme="dark"] .home[posts] .summary .post-footer > a {
+  color: #0A84FF;
+}
+
+body[theme="dark"] .home[posts] .summary .post-footer .post-tags a {
+  color: #c9c9cf;
+  background-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] .home[posts] .summary .post-footer .post-tags a:hover {
+  color: #0A84FF;
+  background-color: rgba(10, 132, 255, .18);
+}
+
+// ---------- 文章页：白色内容卡 + 呼吸感排版 ----------
+// .page.single 只命中文章页与独立页，首页摘要是 .single.summary，不受影响
+.page.single {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 32px 36px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+.page.single .single-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.page.single .post-meta {
+  color: #8e8e93;
+}
+
+.page.single .content p {
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.page.single .content > h2,
+.page.single .content > h3,
+.page.single .content > h4 {
+  margin: 2rem 0 1rem;
+}
+
+// 去掉标题前的 # 与 | 符号：层级只靠字号与间距，视觉更干净
+.page.single .content > h2 > .header-mark::before,
+.page.single .content > h3 > .header-mark::before,
+.page.single .content > h4 > .header-mark::before,
+.page.single .content > h5 > .header-mark::before,
+.page.single .content > h6 > .header-mark::before {
+  content: none;
+}
+
+// 正文链接：统一系统蓝，悬停加深 + 下划线（不再用粉色悬停）
+.page.single .content a {
+  color: #007AFF;
+}
+
+.page.single .content a:hover {
+  color: #0062c4;
+  text-decoration: underline;
+}
+
+body[theme="dark"] .page.single .content a {
+  color: #0A84FF;
+}
+
+body[theme="dark"] .page.single .content a:hover {
+  color: #409cff;
+}
+
+// 文章图片：圆角 + 柔和投影
+.page.single .featured-image img,
+.page.single .content img {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+}
+
+.page.single .content figure .image-caption {
+  color: #8e8e93;
+}
+
+// 引用块：细蓝条 + 浅灰底 + 右侧圆角（不再用粗青条 + 青色底）
+.page.single .content blockquote {
+  border-left: 3px solid #007AFF;
+  background-color: #f5f5f7;
+  border-radius: 0 12px 12px 0;
+  padding: .75rem 1rem;
+  color: #3a3a3c;
+}
+
+body[theme="dark"] .page.single .content blockquote {
+  border-left-color: #0A84FF;
+  background-color: rgba(255, 255, 255, .05);
+  color: #c9c9cf;
+}
+
+// 表格：去掉重网格，只留横向发丝线 + 圆角容器
+.page.single .content .table-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e5ea;
+}
+
+.page.single .content .table-wrapper > table th,
+.page.single .content .table-wrapper > table td {
+  border: none;
+  border-bottom: 1px solid #e5e5ea;
+  padding: .6rem 1rem;
+}
+
+.page.single .content .table-wrapper > table tr:last-child td {
+  border-bottom: none;
+}
+
+.page.single .content .table-wrapper > table thead {
+  background: #f5f5f7;
+}
+
+body[theme="dark"] .page.single .content .table-wrapper {
+  border-color: #38383a;
+}
+
+body[theme="dark"] .page.single .content .table-wrapper > table th,
+body[theme="dark"] .page.single .content .table-wrapper > table td {
+  border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] .page.single .content .table-wrapper > table thead {
+  background: #2c2c2e;
+}
+
+// 行内代码：胶囊底色（只针对段落 / 列表 / 表格里的行内代码，不动代码块）
+.page.single .content p code,
+.page.single .content li code,
+.page.single .content td code {
+  background-color: #f2f2f7;
+  color: #d73a49;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: .9em;
+}
+
+body[theme="dark"] .page.single .content p code,
+body[theme="dark"] .page.single .content li code,
+body[theme="dark"] .page.single .content td code {
+  background-color: rgba(255, 255, 255, .08);
+  color: #e5bf78;
+}
+
+// 代码块：圆角容器
+.page.single .content pre,
+.page.single .content .highlight {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+// 分隔线：虚线改实线发丝线
+.page.single .content hr {
+  border-top: 1px solid #e5e5ea;
+}
+
+body[theme="dark"] .page.single .content hr {
+  border-top-color: #38383a;
+}
+
+// 文章页深色卡片
+body[theme="dark"] .page.single {
+  background-color: #2c2c2e;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+body[theme="dark"] .page.single .content {
+  color: #e5e5ea;
+}
+
+// ---------- 目录：悬浮卡片 ----------
+#toc-auto {
+  background-color: rgba(255, 255, 255, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-left: none;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .1);
+  padding: 16px;
+}
+
+#toc-auto .toc-title {
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+#toc-auto a {
+  color: #666;
+}
+
+#toc-auto a:hover,
+#toc-auto .active > a,
+#toc-auto a.active {
+  color: #007AFF;
+}
+
+#toc-static {
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+  padding: 16px 20px;
+}
+
+body[theme="dark"] #toc-auto {
+  background-color: rgba(44, 44, 46, .85);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+body[theme="dark"] #toc-auto a {
+  color: #c9c9cf;
+}
+
+body[theme="dark"] #toc-auto a:hover,
+body[theme="dark"] #toc-auto .active > a,
+body[theme="dark"] #toc-auto a.active {
+  color: #0A84FF;
+}
+
+body[theme="dark"] #toc-static {
+  background-color: #2c2c2e;
+  border-color: rgba(255, 255, 255, .06);
+  box-shadow: none;
+}
+
+// ---------- 文末：标签 pill + 上下篇卡片 ----------
+#post-footer .post-tags {
+  font-size: 0;
+}
+
+#post-footer .post-tags i {
+  font-size: .85rem;
+  color: #8e8e93;
+}
+
+#post-footer .post-tags a {
+  font-size: .8rem;
+  color: #666;
+  background-color: #f2f2f7;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin: 0 3px;
+  display: inline-block;
+}
+
+#post-footer .post-tags a:hover {
+  color: #007AFF;
+  background-color: rgba(0, 122, 255, .1);
+}
+
+#post-footer .post-info {
+  color: #8e8e93;
+  font-size: .85rem;
+}
+
+#post-footer .post-nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#post-footer .post-nav a {
+  flex: 1;
+  min-width: 200px;
+  background-color: #f5f5f7;
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #1d1d1f;
+  font-weight: 500;
+}
+
+#post-footer .post-nav a:hover {
+  background-color: rgba(0, 122, 255, .08);
+  color: #007AFF;
+}
+
+body[theme="dark"] #post-footer .post-tags a {
+  color: #c9c9cf;
+  background-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] #post-footer .post-tags a:hover {
+  color: #0A84FF;
+  background-color: rgba(10, 132, 255, .18);
+}
+
+body[theme="dark"] #post-footer .post-nav a {
+  background-color: rgba(255, 255, 255, .05);
+  color: #f5f5f7;
+}
+
+body[theme="dark"] #post-footer .post-nav a:hover {
+  background-color: rgba(10, 132, 255, .15);
+  color: #0A84FF;
+}
+
+// ---------- 评论区容器：圆角卡片（iframe 内部按钮颜色改不了，只弱化容器） ----------
+#comments {
+  background-color: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+body[theme="dark"] #comments {
+  background-color: #2c2c2e;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+// ---------- 归档 / 分类 / 标签页：卡片 + 发丝线 ----------
+.archive {
+  background-color: #fff;
+  border-radius: 18px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+.archive-item {
+  padding: .6rem 0;
+  border-bottom: 1px solid #f2f2f7;
+}
+
+.archive-item:last-child {
+  border-bottom: none;
+}
+
+.archive-item a {
+  font-weight: 600;
+}
+
+.archive-item a:hover {
+  color: #007AFF;
+}
+
+.categories-card .card-item {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+body[theme="dark"] .archive {
+  background-color: #2c2c2e;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+body[theme="dark"] .archive-item {
+  border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+body[theme="dark"] .categories-card .card-item {
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+// ---------- 分页：胶囊按钮（去掉旧式下划线条） ----------
+.pagination li a {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, .06);
+  color: #666;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.pagination li a:hover {
+  color: #007AFF;
+  border-color: rgba(0, 122, 255, .3);
+}
+
+.pagination li.active a,
+.pagination a.active {
+  background-color: #007AFF;
+  color: #fff;
+  border-color: transparent;
+}
+
+.pagination li::before,
+.pagination li::after {
+  display: none;
+}
+
+body[theme="dark"] .pagination li a {
+  background-color: #2c2c2e;
+  border-color: rgba(255, 255, 255, .1);
+  color: #c9c9cf;
+  box-shadow: none;
+}
+
+body[theme="dark"] .pagination li a:hover {
+  color: #0A84FF;
+  border-color: rgba(10, 132, 255, .4);
+}
+
+body[theme="dark"] .pagination li.active a,
+body[theme="dark"] .pagination a.active {
+  background-color: #0A84FF;
+  color: #fff;
+}
+
+// ---------- 页脚：更安静的收尾 ----------
+footer {
+  height: auto;
+  padding: 2rem 0 2.5rem;
+}
+
+footer .footer-container {
+  color: #8e8e93;
+  font-size: .82rem;
+  line-height: 1.8;
+}
+
+footer .footer-container a {
+  color: #8e8e93;
+}
+
+footer .footer-container a:hover {
+  color: #007AFF;
+}
+
+// ---------- 悬浮按钮：统一为 44px 磨砂圆钮，位置对齐 ----------
+// 看板娘开关的样式写在页脚内联 <style> 里（文档顺序更靠后），
+// 这里用 body 前缀提高优先级才能覆盖它
+#back-to-top {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  padding: 0;
+  border-radius: 50%;
+  right: 20px;
+  bottom: 20px;
+  color: #666;
+  background-color: rgba(255, 255, 255, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+}
+
+#back-to-top:hover {
+  color: #007AFF;
+}
+
+body #live2d-toggle {
+  right: 20px;
+  bottom: 76px;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  background-color: rgba(255, 255, 255, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+  color: #666;
+}
+
+body[theme="dark"] #back-to-top {
+  background-color: rgba(44, 44, 46, .85);
+  color: #c9c9cf;
+}
+
+body[theme="dark"] #back-to-top:hover {
+  color: #0A84FF;
+}
+
+body[theme="dark"] body #live2d-toggle {
+  background-color: rgba(44, 44, 46, .85);
+  border-color: rgba(255, 255, 255, .12);
+  color: #c9c9cf;
+}
+
+// ---------- 小屏：卡片内边距收窄，圆角略减 ----------
+@media only screen and (max-width: 680px) {
+  .page.single {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .home[posts] .summary {
+    padding: 16px 18px;
+  }
+
+  #comments {
+    padding: 16px;
+  }
+}
