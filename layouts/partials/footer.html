@@ -113,51 +113,33 @@
 
 </footer>
 {{- end -}}
-{{/* Pagefind 搜索：替代已移除的 Lunr 搜索。索引由构建流程在 hugo 之后生成（public/pagefind/），本地 hugo server 下无索引时静默跳过。 */}}
+
+{{/* Pagefind 搜索：替代已移除的 Lunr 搜索。索引由 CI 在 Hugo 构建后生成到 public/pagefind/；本地 hugo server 下无索引时静默跳过。注意：初始化代码只保留一份，重复初始化会在同一容器里渲染出两个输入框。 */}}
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
     if (!window.PagefindUI) return;
-    var opts = { showSubResults: true, pageSize: 10, translations: { placeholder: "搜索文章标题或内容..." } };
+    var opts = { showSubResults: true, pageSize: 10, translations: { placeholder: "搜索文章..." } };
     new PagefindUI(Object.assign({ element: "#pagefind-search-desktop" }, opts));
     new PagefindUI(Object.assign({ element: "#pagefind-search-mobile" }, opts));
   });
 </script>
 <style>
-  /* Pagefind 搜索框：桌面端固定宽度；结果区以下拉层展开（桌面 .menu 原有 overflow:hidden 会裁剪下拉层，改用 :has 放开） */
+  /* 搜索框：桌面端定宽，移动端随菜单宽度 */
   .pagefind-search { position: relative; }
   #pagefind-search-desktop { width: 220px; }
-  .menu:has(.pagefind-search) { overflow: visible; }
-  .pagefind-search .pagefind-ui__results-area,
-  .pagefind-search .pagefind-ui__drawer { position: absolute; left: 0; right: 0; top: 100%; z-index: 200; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
   .pagefind-search .pagefind-ui__form { margin-bottom: 0; }
-  body[theme="dark"] .pagefind-ui {
-    --pagefind-ui-primary: #a9a9b3;
-    --pagefind-ui-text: #a9a9b3;
-    --pagefind-ui-background: #292a2d;
-    --pagefind-ui-border: #363636;
-    --pagefind-ui-tag: #363636;
+  /* 桌面端结果面板：用 fixed 定位，直接脱离顶栏。主题 .menu 的 overflow:hidden 会裁剪 absolute 下拉层，且其 ID 选择器优先级高于 :has 覆盖，故不用 absolute/:has 方案；定位参数沿用主题旧搜索下拉的约定：顶栏高 3.5rem、右距 2rem、宽 30rem */
+  #pagefind-search-desktop .pagefind-ui__drawer { position: fixed; top: 3.5rem; right: 2rem; width: 30rem; max-height: 70vh; overflow-y: auto; z-index: 200; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
+  /* 移动端结果面板：菜单面板本身不裁剪，用 absolute 跟随输入框 */
+  #pagefind-search-mobile .pagefind-ui__drawer { position: absolute; left: 0; right: 0; top: 100%; z-index: 200; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
+  /* 浅色模式：按 LoveIt 浅色色板给边框和文字足够的对比度（默认浅灰边框在浅色顶栏上几乎看不清） */
+  .pagefind-ui {
+    --pagefind-ui-primary: #161209;
+    --pagefind-ui-text: #161209;
+    --pagefind-ui-border: #cccccc;
   }
-</style>
-
-{{/* Pagefind 搜索：替代已删除的 Lunr 搜索。索引由 CI 在 Hugo 构建后生成到 public/pagefind/；本地 hugo server 预览时没有该目录，脚本会静默跳过。 */}}
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-ui.js"></script>
-<script>
-  window.addEventListener('DOMContentLoaded', function () {
-    if (!window.PagefindUI) { return; }
-    var options = { showSubResults: true, pageSize: 10, translations: { placeholder: "搜索文章标题或内容..." } };
-    new PagefindUI(Object.assign({ element: "#pagefind-search-desktop" }, options));
-    new PagefindUI(Object.assign({ element: "#pagefind-search-mobile" }, options));
-  });
-</script>
-<style>
-  /* Pagefind 搜索样式：桌面端结果以下拉层展开（.menu 原有 overflow:hidden 会裁剪下拉层，用 :has 放开并以 flow-root 保持其浮动包含行为）；深色模式变量对齐 LoveIt 配色 */
-  .pagefind-search { white-space: normal; }
-  #pagefind-search-desktop { position: relative; display: inline-block; width: 220px; }
-  header.desktop .menu:has(.pagefind-search) { overflow: visible; display: flow-root; }
-  #pagefind-search-desktop .pagefind-ui__results-area { position: absolute; top: 100%; left: 0; right: 0; z-index: 100; max-height: 70vh; overflow-y: auto; box-shadow: 0 4px 16px rgba(0, 0, 0, .2); }
   body[theme="dark"] .pagefind-ui {
     --pagefind-ui-primary: #a9a9b3;
     --pagefind-ui-text: #a9a9b3;
