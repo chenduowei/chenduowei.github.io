@@ -1458,3 +1458,214 @@ body[theme="dark"] #waifu-tips {
 .home[posts] .summary .content > :last-child {
   margin-bottom: 0;
 }
+
+// ============================================================
+// 第三轮打磨（2026-11-02）：搜索栏收窄、字号行高统一、灰色加深、全面细节
+// 字阶统一为：标题 28/20、正文 16、小字 14、角标 12；行高：标题 1.4、正文 1.8、小字 1.6
+// ============================================================
+
+// ---------- 搜索栏高度：36px -> 32px，不再显挤 ----------
+#pagefind-search-desktop .pagefind-ui__search-input,
+#pagefind-search-mobile .pagefind-ui__search-input {
+  height: 32px;
+}
+
+// ---------- 标题字号行高：28/20 配 1.4，正文摘要行高统一 1.8 ----------
+.page.single .single-title {
+  font-size: 28px;
+  line-height: 1.4;
+}
+
+.home[posts] .summary .single-title {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.home[posts] .summary .content {
+  line-height: 1.8;
+}
+
+// ---------- 小字统一 14px / 1.6（之前 12.8/13/13.6/14 混用） ----------
+.home[posts] .summary .post-meta,
+.page.single .post-meta,
+#post-footer .post-info,
+.page.single .content figure .image-caption,
+footer .footer-container,
+footer .footer-container a,
+.archive-item-date,
+.home[posts] .summary .post-footer .post-tags a,
+#post-footer .post-tags a,
+.pagination li a,
+.pagination li .page-link {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+// 归档页“共 N 篇”：模板写了内联 .8rem，用 !important 覆盖
+.page.archive > span {
+  font-size: 14px !important;
+  line-height: 1.6;
+}
+
+// 标签角标是数量徽章，保留 12px
+.tag-cloud-tags a sup {
+  font-size: 12px;
+}
+
+// 搜索结果小字同样统一 14px / 1.6
+#pagefind-search-desktop .pagefind-ui__result-excerpt,
+#pagefind-search-mobile .pagefind-ui__result-excerpt {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#pagefind-search-desktop .pagefind-ui__result-nested,
+#pagefind-search-mobile .pagefind-ui__result-nested {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#pagefind-search-desktop .pagefind-ui__search-clear,
+#pagefind-search-mobile .pagefind-ui__search-clear {
+  font-size: 14px;
+}
+
+.pagefind-empty-hint {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+// 目录行高放开到 1.9，字号不动（16px 本来就不小）
+#toc-auto .toc-content a,
+#toc-static .toc-content a {
+  line-height: 1.9;
+}
+
+// ---------- 灰色加深：浅色次要文字 #6C6C70 -> #55555A，占位文字 #8e8e93 -> #6C6C70 ----------
+.home[posts] .summary .post-meta,
+.page.single .post-meta,
+.home .home-profile .home-subtitle,
+#post-footer .post-info,
+.page.single .content figure .image-caption,
+footer .footer-container,
+footer .footer-container a,
+.archive-item-date,
+.tag-cloud-tags a sup,
+.home[posts] .summary .post-footer .post-tags a,
+#post-footer .post-tags a,
+.pagination li .page-link {
+  color: #55555A;
+}
+
+.pagefind-ui__search-input::placeholder {
+  color: #6C6C70;
+}
+
+#pagefind-search-desktop .pagefind-ui__result-excerpt,
+#pagefind-search-mobile .pagefind-ui__result-excerpt,
+#pagefind-search-desktop .pagefind-ui__result-nested a,
+#pagefind-search-mobile .pagefind-ui__result-nested a,
+#pagefind-search-desktop .pagefind-ui__search-clear,
+#pagefind-search-mobile .pagefind-ui__search-clear,
+#pagefind-search-desktop .pagefind-ui__message,
+#pagefind-search-mobile .pagefind-ui__message {
+  color: #55555A;
+}
+
+.pagefind-empty-hint {
+  color: #55555A;
+}
+
+// ---------- 目录锚点不再被固定顶栏盖住 ----------
+.page.single .content > h2,
+.page.single .content > h3,
+.page.single .content > h4,
+.page.single .content > h5,
+.page.single .content > h6 {
+  scroll-margin-top: 4.5rem;
+}
+
+// ---------- 页脚顶部加发丝线，与正文分开 ----------
+footer {
+  border-top: 1px solid rgba(60, 60, 67, 0.12);
+}
+
+body[theme="dark"] footer {
+  border-top-color: rgba(84, 84, 88, 0.65);
+}
+
+// ---------- 桌面主题切换改圆形按钮（移动端菜单里保持列表行样式不动） ----------
+#header-desktop .header-wrapper .menu a.theme-switch {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  padding: 0;
+  border-radius: 50%;
+}
+
+// ---------- 移动端顶栏与菜单面板同样磨砂 ----------
+#header-mobile {
+  background-color: rgba(248, 248, 248, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+#menu-mobile {
+  background-color: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+body[theme="dark"] #header-mobile {
+  background-color: rgba(28, 28, 30, 0.72);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body[theme="dark"] #menu-mobile {
+  background-color: rgba(28, 28, 30, 0.95);
+}
+
+// ---------- 分类卡片补边框，与其他卡片一致 ----------
+.categories-card .card-item {
+  border: 1px solid rgba(60, 60, 67, 0.12);
+}
+
+body[theme="dark"] .categories-card .card-item {
+  border: 1px solid rgba(84, 84, 88, 0.65);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30);
+}
+
+// ---------- 首页头像加白圈 + 柔和投影 ----------
+.home-avatar img {
+  border: 3px solid #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+}
+
+body[theme="dark"] .home-avatar img {
+  border-color: #1C1C1E;
+}
+
+// ---------- 根因修正：卡片 padding 缩写吃掉了主题预留的顶栏高度 ----------
+// 主题给 .page 预留了 3.5rem 上内边距以避开固定顶栏；
+// 上一轮卡片化的 padding 缩写把它覆盖成 32px/20px，卡片顶边伸到顶栏下方，
+// 标题贴着顶栏底边（手机上实打实被压住约 11px），归档卡片顶边同理被切成直角。
+// 修正：卡片上内边距 = 顶栏高 + 卡片呼吸边距；归档页 16px margin 的权宜写法一并去掉。
+.page.single {
+  padding: calc(3.5rem + 32px) 36px 32px;
+}
+
+.page.archive {
+  margin: 0 auto;
+}
+
+.archive {
+  padding: calc(3.5rem + 20px) 22px 20px;
+}
+
+@media only screen and (max-width: 680px) {
+  .page.single {
+    padding: calc(3.5rem + 20px) 20px 20px;
+  }
+}
