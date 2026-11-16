@@ -2,3 +2,7 @@
 public/
 resources/
 .hugo_build.lock
+
+# macOS 系统文件（Finder 一打开目录就会生成，别提交）
+.DS_Store
+._*
