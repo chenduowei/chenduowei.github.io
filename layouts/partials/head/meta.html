@@ -1,0 +1,84 @@
+{{- /* 覆盖主题 head/meta.html：主题用 Hugo 内置 _internal/opengraph.html，只认 images、不认 featuredImage，
+       于是全站 og:image 都指向一个不存在的 /logo.png（404），文章自己的封面根本进不了分享卡片。
+       这里自己输出 Description / Open Graph / Twitter Card：页面封面 → featuredImage → 站点默认封面（/og-cover.jpg）。 */ -}}
+{{- $params := .Scratch.Get "params" -}}
+{{- $title := .Title | default .Site.Title -}}
+
+{{- /* 描述：frontmatter description → 正文摘要（截断）→ 站点描述 */ -}}
+{{- $description := $params.description | default "" -}}
+{{- if not $description -}}
+    {{- with .Summary -}}
+        {{- $description = . | plainify | htmlUnescape | chomp | truncate 120 -}}
+    {{- end -}}
+{{- end -}}
+{{- if not $description -}}
+    {{- $description = .Site.Params.description -}}
+{{- end -}}
+
+<meta name="Description" content="{{ $description }}">
+
+{{- $images := .Params.images -}}
+{{- if not $images -}}
+    {{- with .Params.featuredimage -}}{{ $images = slice . }}{{ end -}}
+{{- end -}}
+{{- if not $images -}}
+    {{- with .Params.featuredimagepreview -}}{{ $images = slice . }}{{ end -}}
+{{- end -}}
+{{- $isSiteDefault := false -}}
+{{- if not $images -}}
+    {{- $images = .Site.Params.images -}}
+    {{- $isSiteDefault = true -}}
+{{- end -}}
+
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{- if eq (printf "%v" .Site.Language.Locale) "zh-CN" }}
+<meta property="og:locale" content="zh_CN">
+{{- end }}
+{{- with $images }}
+    {{- with index . 0 }}
+<meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:alt" content="{{ $title }}">
+        {{- if $isSiteDefault }}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+        {{- end }}
+    {{- end }}
+{{- end }}
+{{- if .IsPage }}
+    {{- with .PublishDate }}
+<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
+    {{- end }}
+    {{- with .Params.categories }}
+<meta property="article:section" content="{{ index . 0 }}">
+    {{- end }}
+    {{- range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+    {{- end }}
+{{- end }}
+
+<meta name="twitter:card" content="{{ if $images }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{- with $images }}
+    {{- with index . 0 }}
+<meta name="twitter:image" content="{{ . | absURL }}">
+    {{- end }}
+{{- end }}
+{{- with .Site.Params.social.Twitter }}
+<meta name="twitter:site" content="@{{ . }}">
+{{- end }}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+{{- with .Site.Params.app.themeColor }}
+<meta name="theme-color" content="{{ . }}">
+{{- end }}
+
+{{- with .Site.Params.app.tileColor }}
+<meta name="msapplication-TileColor" content="{{ . }}">
+{{- end }}
