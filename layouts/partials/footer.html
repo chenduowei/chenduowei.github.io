@@ -1,5 +1,5 @@
 {{- if ne .Site.Params.footer.enable false -}}
-<footer class="footer">
+<footer class="footer" data-pagefind-ignore>
     <div class="footer-container">
         {{- /* Custom Content */ -}} {{- with .Site.Params.footer.custom -}}
         <div class="footer-line">
@@ -123,6 +123,10 @@
     var opts = { showSubResults: true, pageSize: 6, translations: { placeholder: "搜索文章..." } };
     new PagefindUI(Object.assign({ element: "#pagefind-search-desktop" }, opts));
     new PagefindUI(Object.assign({ element: "#pagefind-search-mobile" }, opts));
+    // 404 页的站内搜索：只有该页存在容器时才初始化
+    if (document.getElementById("pagefind-search-404")) {
+      new PagefindUI(Object.assign({ element: "#pagefind-search-404", showImages: false }, opts));
+    }
   });
 </script>
 {{/* 搜索体验补强：键盘导航 / Esc 只关不清空 / 快捷键聚焦 / 空结果提示 / 回到顶部平滑滚动 */}}

@@ -402,7 +402,12 @@ body[theme="dark"] .home[posts] .summary .post-footer .post-tags a:hover {
   background-color: #fff;
   border: 1px solid rgba(60, 60, 67, 0.12);
   border-radius: 16px;
+  // box-sizing：主题全站是 content-box，卡片 padding 会往外撑 74px，
+  // 680px 以下（.page 变 width:100%）就是手机端那 18px 横向溢出的根因。
+  box-sizing: border-box;
   padding: 32px 36px;
+  // 卡片自身的上边距避开 56px 固定顶栏：圆角与阴影能露出来，而不是被顶栏压在下面
+  margin-top: calc(3.5rem + 16px);
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
 }
 
@@ -533,10 +538,48 @@ body[theme="dark"] .page.single .content td code {
 }
 
 // 代码块：圆角容器
-.page.single .content pre,
 .page.single .content .highlight {
   border-radius: 12px;
   overflow: hidden;
+}
+
+// 代码块自身横向滚动：长行不再把整页撑宽（lineNumbersInTable 关掉后，
+// 行号是 pre 里的 span.ln，而不是两列表格）
+.page.single .content .highlight pre {
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page.single .content .highlight pre code {
+  white-space: pre;
+}
+
+// 主题 JS 会把 pre.chroma 包进一层 <table>（自动布局），长行会把表格撑到比容器还宽，
+// 结果是被 .highlight 的 overflow:hidden 裁掉、也没法横向滚动。固定表格布局后就交给 pre 滚动。
+.page.single .content .highlight table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+// 行号：定宽右对齐、不可选中，复制代码不会带上序号
+.page.single .content .highlight .line {
+  display: flex;
+}
+
+.page.single .content .highlight .ln {
+  flex: 0 0 2.2em;
+  padding-right: .8em;
+  text-align: right;
+  color: #8e8e93;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.page.single .content .highlight .cl {
+  flex: 1 1 auto;
+  white-space: pre;
 }
 
 // 分隔线：虚线改实线发丝线
@@ -687,11 +730,13 @@ body[theme="dark"] #post-footer .post-nav a:hover {
 }
 
 // ---------- 评论区容器：圆角卡片（iframe 内部按钮颜色改不了，只弱化容器） ----------
-#comments {
+// 主题写的是 .single #comments{padding:8rem 0 2rem}（0,2,0），只写 #comments（0,1,0）权重不够，
+// 结果只有背景/圆角生效、128px 的顶部空白照样留着。这里把权重对齐。
+.single #comments {
   background-color: #fff;
   border: 1px solid rgba(60, 60, 67, 0.12);
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px 20px;
   margin-top: 16px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
 }
@@ -875,6 +920,7 @@ body[theme="dark"] body #live2d-toggle {
   .page.single {
     padding: 20px;
     border-radius: 16px;
+    margin-top: calc(3.5rem + 8px);
   }
 
   .home[posts] .summary {
@@ -1651,22 +1697,37 @@ body[theme="dark"] .home-avatar img {
 // 主题给 .page 预留了 3.5rem 上内边距以避开固定顶栏；
 // 上一轮卡片化的 padding 缩写把它覆盖成 32px/20px，卡片顶边伸到顶栏下方，
 // 标题贴着顶栏底边（手机上实打实被压住约 11px），归档卡片顶边同理被切成直角。
-// 修正：卡片上内边距 = 顶栏高 + 卡片呼吸边距；归档页 16px margin 的权宜写法一并去掉。
+// 修正（第二轮）：用 margin-top 而不是上内边距来避顶栏——上内边距只能把标题推下去，
+// 卡片自己的上圆角/阴影还是压在顶栏底下。现在卡片整体落在顶栏下方。
+// 归档/标签/分类卡同理（内容区 .archive 与容器 .page.archive 是同一个元素）。
 .page.single {
-  padding: calc(3.5rem + 32px) 36px 32px;
+  padding: 32px 36px;
+  box-sizing: border-box;
+  margin-top: calc(3.5rem + 16px);
 }
 
 .page.archive {
-  margin: 0 auto;
+  margin: calc(3.5rem + 12px) auto 0;
+  // .archive 和 .page 是同一个元素；主题的 [header-desktop] .page 权重 (0,2,0) 会压掉
+  // 只写 .archive (0,1,0) 的 padding，把 3.5rem 的顶栏补偿当成卡片内边距留在里面，
+  // 所以这里用 .page.archive 同权重、后加载，把它一起盖掉。
+  padding: 20px 22px;
+  box-sizing: border-box;
 }
 
 .archive {
-  padding: calc(3.5rem + 20px) 22px 20px;
+  padding: 20px 22px;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 680px) {
   .page.single {
-    padding: calc(3.5rem + 20px) 20px 20px;
+    padding: 20px;
+    margin-top: calc(3.5rem + 8px);
+  }
+
+  .page.archive {
+    margin-top: calc(3.5rem + 8px);
   }
 }
 
@@ -1692,4 +1753,92 @@ body[theme="dark"] .home-avatar img {
 #pagefind-search-desktop .pagefind-ui__search-input,
 #pagefind-search-mobile .pagefind-ui__search-input {
   font-size: 16px;
+}
+
+// ============================================================
+// 404 页：站内搜索 + 主要入口 + 最近 5 篇（原先只有一句提示）
+// ============================================================
+// 主题的 404 样式是给“一行字居中、往下推 30vh”那种空页面写的，
+// 这里要的是正常卡片：左对齐、不位移、字号回到正文大小。
+#content-404 {
+  transform: none;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.8;
+  padding-top: 32px;
+}
+
+#content-404 .single-title,
+#content-404 h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 .75rem;
+}
+
+#pagefind-search-404 .pagefind-ui__form {
+  width: 100%;
+}
+
+#content-404 .error-text {
+  color: #8e8e93;
+  margin: 0 0 .5rem;
+}
+
+#content-404 .error-hint {
+  margin: 0 0 1rem;
+}
+
+#pagefind-search-404 {
+  max-width: 480px;
+  margin-bottom: .5rem;
+}
+
+#pagefind-search-404 .pagefind-ui__search-input {
+  height: 36px;
+}
+
+#pagefind-search-404 .pagefind-ui__form::before {
+  top: 9px; /* (36 - 18) / 2 */
+}
+
+#pagefind-search-404 .pagefind-ui__search-clear {
+  top: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+#content-404 .error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: 1rem 0 1.75rem;
+}
+
+#content-404 .error-links a {
+  padding: 6px 12px;
+  border-radius: 10px;
+  background-color: #f2f2f7;
+  color: #007AFF;
+  font-size: .9rem;
+}
+
+body[theme="dark"] #content-404 .error-links a {
+  background-color: rgba(255, 255, 255, .08);
+  color: #0A84FF;
+}
+
+// 主题给归档日期固定 4em 宽（归档页里格式是 MM-DD），404 用的是完整日期，会被挤成两行
+#content-404 .archive-item-date {
+  width: auto;
+  white-space: nowrap;
+  font-size: .85rem;
+}
+
+#content-404 .error-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8e8e93;
+  margin: 0 0 .5rem;
 }

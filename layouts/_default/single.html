@@ -1,0 +1,27 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+    {{- /* 独立页（关于等）也标记 data-pagefind-body：站点里一旦有页面用了它，没标记的页面就不会被 Pagefind 收录 */ -}}
+    <div class="page single special" data-pagefind-body>
+        {{- /* Title */ -}}
+        <h1 class="single-title animated pulse faster">
+            {{- .Title -}}
+        </h1>
+
+        {{- /* Subtitle */ -}}
+        {{- with $params.subtitle -}}
+            <h2 class="single-subtitle">{{ . }}</h2>
+        {{- end -}}
+
+        {{- /* Content */ -}}
+        <div class="content" id="content">
+            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+        </div>
+
+        {{- /* Comment */ -}}
+        <div data-pagefind-ignore>
+            {{- partial "comment.html" . -}}
+        </div>
+    </div>
+{{- end -}}

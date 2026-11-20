@@ -5,6 +5,8 @@ hasCJKLanguage = true
 title = "Duowei Chen の Blog"
 theme = "LoveIt"
 publishDir = "public"
+# robots.txt 交给项目级 layouts/robots.txt（主题自带那份会 Disallow /images/，不能用）
+enableRobotsTXT = true
 
 # 长期最优雅的写法：有 slug 用 slug，没有就用 filename（完美兼容你大学10篇数字文章）
 [Permalinks]
@@ -39,12 +41,17 @@ publishDir = "public"
 
 [params]
 
+  # 主题 init.html 的兼容性哨兵：必须是 "0.2.X"，改成别的版本号会直接构建报错。
+  # 页脚显示的 LoveIt 版本来自主题里的真实版本号（0.2.10），不需要在这里声明。
   version = "0.2.X"
   description = "陈多伟的个人博客"   # 低调到底，终极逼格
   keywords = ["陈多伟", "博客", "标书", "思考", "生活随笔"]
   defaultTheme = "auto"
   dateFormat = "2006-01-02"
-  images = ["/logo.png"]
+  images = ["/og-cover.jpg"]
+  # 资源指纹：主题读的是 .Site.Params.fingerprint（见 themes/LoveIt/layouts/partials/init.html），
+  # 值是哈希算法（sha256/sha384/sha512/md5），留空则关闭；写进 [params.assets] 不生效（旧配置残留，已删）。
+  fingerprint = "sha256"
   since = 2021
 
   # 页脚版权说明：原创文章转载请注明出处
@@ -67,6 +74,11 @@ publishDir = "public"
     typeit = true
     social = true
     disclaimer = "我唯一知道的，就是我一无所知。"
+
+  # 代码块：lineNumbersInTable 关掉后代码块走主题的“折叠标题”逻辑，
+  # 默认 10 行以上会被折叠成一行标题（读者只看到 “Code” 和一个箭头）。这里设 -1 = 全部展开。
+  [params.page.code]
+    maxShownLines = -1
 
   # 2025 唯一新增：评论区（不加也行，想加了再打开）
   [params.page.comment]
@@ -151,7 +163,8 @@ publishDir = "public"
     codeFences = true
     guessSyntax = true
     lineNos = true
-    lineNumbersInTable = true
+    # 行号不再走两列表格（table.lntable）：表格会把 390px 手机屏撑到 438px
+    lineNumbersInTable = false
     noClasses = false
   [markup.goldmark.renderer]
     unsafe = true
@@ -164,8 +177,6 @@ publishDir = "public"
   disableXML = true
   minifyOutput = true
 
-[params.assets]
-  fingerprint = true
 
 # 作者名字设置（加了这行，首页和文章页就显示你的名字了）
 
