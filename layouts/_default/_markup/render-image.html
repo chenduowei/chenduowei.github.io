@@ -1,0 +1,12 @@
+{{- /* 覆盖主题 render hook：主题传的是 "Title" .Text，而 plugin/image.html 的 alt 取 .Alt（永远为空）→ 回退成图片路径。
+       这里把 markdown 的说明文字（.Text）作为 alt 与 lightbox 标题，图片的可访问性描述才不会被路径覆盖。 */ -}}
+{{- if .Title -}}
+    <figure>
+        {{- dict "Src" .Destination "Alt" .Text "Title" .Title "Caption" .Title "Linked" true "Resources" .Page.Resources | partial "plugin/image.html" -}}
+        <figcaption class="image-caption">
+            {{- .Title | safeHTML -}}
+        </figcaption>
+    </figure>
+{{- else -}}
+    {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Resources" .Page.Resources | partial "plugin/image.html" -}}
+{{- end -}}
